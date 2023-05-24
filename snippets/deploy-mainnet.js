@@ -1,6 +1,5 @@
-const { PactCommand, signWithChainweaver  } = require('@kadena/client');
+const { PactCommand, signWithChainweaver } = require('@kadena/client');
 const fs = require('fs');
-const fetch = require('node-fetch');
 
 const NETWORK_ID = 'mainnet01';
 const CHAIN_ID = '1';
@@ -11,7 +10,7 @@ const PUBLIC_KEY = '41642d4b7f3134f780a7133b319c37775ba2506bd71dc1457b483dd392fc
 
 const pactCode = fs.readFileSync(CONTRACT_PATH, 'utf8');
 
-// deployContract(pactCode);
+deployContract(pactCode);
 
 async function deployContract(pactCode) {
   const publicMeta = {
@@ -24,9 +23,9 @@ async function deployContract(pactCode) {
   const pactCommand = new PactCommand()
     .setMeta(publicMeta, NETWORK_ID)
     .addCap('coin.GAS', PUBLIC_KEY)
-    .addData( {
-      'election-admin-keyset': [ PUBLIC_KEY ],
-      'upgrade': false
+    .addData({
+      'election-admin-keyset': [PUBLIC_KEY],
+      upgrade: false
     });
   pactCommand.code = pactCode;
 
@@ -34,6 +33,4 @@ async function deployContract(pactCode) {
 
   const response = await signedTransaction[0].send(API_HOST);
   console.log(response);
-};
-
-fetch('http://127.0.0.1:9467/v1/quicksign', {method: 'POST', headers: {'content-type': 'application/json'}},).then(console.log)
+}

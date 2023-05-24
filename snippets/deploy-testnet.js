@@ -1,4 +1,4 @@
-const { PactCommand, signWithChainweaver  } = require('@kadena/client');
+const { PactCommand, signWithChainweaver } = require('@kadena/client');
 const fs = require('fs');
 
 const NETWORK_ID = 'testnet04';
@@ -23,9 +23,9 @@ async function deployContract(pactCode) {
   const pactCommand = new PactCommand()
     .setMeta(publicMeta, NETWORK_ID)
     .addCap('coin.GAS', PUBLIC_KEY)
-    .addData( {
-      'election-admin-keyset': [ PUBLIC_KEY ],
-      'upgrade': false
+    .addData({
+      'election-admin-keyset': [PUBLIC_KEY],
+      upgrade: false
     });
   pactCommand.code = pactCode;
 
@@ -33,4 +33,4 @@ async function deployContract(pactCode) {
 
   const response = await signedTransaction[0].send(API_HOST);
   console.log(response);
-};
+}
