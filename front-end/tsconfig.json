@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["./node_modules/.kadena/pactjs-generated"]
+    "types": [".kadena/pactjs-generated"]
   },
   "include": [
     "src"
