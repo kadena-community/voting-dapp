@@ -31,7 +31,8 @@ export const hasUserVoted = async (account: string): Promise<boolean> => {
  * @return the number of votes
  */
 export const getVotes = async (candidateId: string): Promise<number> => {
-  const transactionBuilder = Pact.modules['free.election']['get-votes'](candidateId);
+  // @ts-ignore getVotes/get-votes
+  const transactionBuilder = Pact.modules['free.election'].getVotes(candidateId); // ['get-votes'] on chain 0, getVotes on chain 1
   const { result } = await transactionBuilder.local(API_HOST);
 
   if (result.status === 'success') {
