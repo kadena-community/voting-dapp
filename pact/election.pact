@@ -98,7 +98,7 @@
       ;; Record the vote in the `votes` table (prevent double-voting)
       (insert votes account { "cid": candidateId })
 
-      ;; Emit an event that can be used by the front-end component to update the number of
+      ;; Emit an event that can be used by the frontend component to update the number of
       ;; votes displayed for a candidate
       (emit-event (VOTED candidateId))
     )
