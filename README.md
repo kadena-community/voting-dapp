@@ -1,7 +1,7 @@
 # Election dApp tutorial
 
 This repository contains the code files used in the
-[Election dApp tutorial](https://github.com/kadena-community/docs/blob/master/docs/build/guides/building-a-voting-dapp.md).
+[Election dApp tutorial](https://docs.kadena.io/build/guides/building-a-voting-dapp).
 
 ## Repository structure
 
