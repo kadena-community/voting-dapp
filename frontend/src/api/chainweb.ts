@@ -74,7 +74,6 @@ export class ChainWebApiImpl implements ChainWebApi {
    */
   async vote(account: string, candidateId: string): Promise<void> {
     const transaction = Pact.builder
-      // ['get-votes'] on chain 0, getVotes on chain 1
       .execution(Pact.modules["free.election"].vote(account, candidateId))
       .addSigner(accountKey(account), (withCapability) => [
         withCapability("coin.GAS"),

@@ -1,7 +1,10 @@
 const fs = require("fs");
-const Kadena = require("@kadena/client");
-
-const { Pact, getClient, signWithChainweaver, isSignedCommand } = Kadena;
+const {
+  Pact,
+  getClient,
+  signWithChainweaver,
+  isSignedCommand,
+} = require("@kadena/client");
 
 const NETWORK_ID = "mainnet01";
 const CHAIN_ID = "1";
@@ -39,7 +42,7 @@ async function deployContract(pactCode) {
   const client = getClient(API_HOST);
 
   const [requestKey] = await client.submit(signedTransaction);
-  console.log(`Sumibtted: ${requestKey}`);
+  console.log(`Sumibtted: ${requestKey}, polling for result...`);
 
   const status = await client.pollStatus(requestKey);
   console.log(`status for ${requestKey}:`, status[requestKey]);

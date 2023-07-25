@@ -1,7 +1,5 @@
-const Kadena = require("@kadena/client");
+const { Pact, getClient } = require("@kadena/client");
 const { createExp } = require("@kadena/pactjs");
-
-const { Pact, getClient } = Kadena;
 
 const NETWORK_ID = "testnet04";
 const CHAIN_ID = "1";
