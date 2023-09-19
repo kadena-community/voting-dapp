@@ -1,0 +1,15 @@
+networkId: "fast-development"
+type: "exec"
+codeFile: "/Users/leoni/Werk/kadena/voting-dapp/pact/election-gas-station.pact"
+data:
+  election-admin-keyset:
+    keys:
+      - "25103731bc291481f54a33ac5e8abbb67ac1199679530da38f5c4e2ba7c17864"
+    pred: "keys-all"
+  upgrade: true
+publicMeta:
+  chainId: "1"
+  sender: "k:25103731bc291481f54a33ac5e8abbb67ac1199679530da38f5c4e2ba7c17864"
+  gasLimit: 80000
+  gasPrice: 0.0000001
+  ttl: 600

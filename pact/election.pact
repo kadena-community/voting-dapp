@@ -6,7 +6,7 @@
 
 ;; Define `election` module
 (module election GOVERNANCE
-  "Election demo module"
+  "Election demo module updated"
 
   (defcap GOVERNANCE ()
     "Module governance capability that only allows the admin to update this module"
@@ -97,10 +97,6 @@
 
       ;; Record the vote in the `votes` table (prevent double-voting)
       (insert votes account { "cid": candidateId })
-
-      ;; Emit an event that can be used by the frontend component to update the number of
-      ;; votes displayed for a candidate
-      (emit-event (VOTED candidateId))
     )
   )
 
@@ -131,6 +127,14 @@
     ;; Read the row using cid as key and select only the `votes` column
     (at 'votes (read candidates cid ['votes]))
   )
+
+  (defun read-candidate:object (key:string)
+    "Read a single candidate"
+    (+ {'key: key} (read candidates key)))
+
+  (defun list-candidates:[object] ()
+    "List all candidates."
+    (map (read-candidate) (keys candidates)))
 
   (defun insert-candidate (candidate)
   "Insert a new candidate, admin operation"

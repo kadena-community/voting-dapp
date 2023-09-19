@@ -74,7 +74,7 @@
 (env-sigs [{ "key": "admin-key", "caps": []}])
 
 ;; Call `insert-candidates` to add 3 candidates
-(insert-candidates [{ "key": "1", "name": "Candidate A" } { "key": "2", "name": "Candidate B" } { "key": "3", "name": "Candidate B" }])
+(insert-candidates [{ "key": "1", "name": "Candidate A" } { "key": "2", "name": "Candidate B" } { "key": "3", "name": "Candidate C" }])
 
 ;; test if votes count for candidate "1" is initialized with 0
 (expect "votes for Candidate A initialized" (get-votes "1") 0)
@@ -84,6 +84,18 @@
 
 ;; test if votes count for candidate "3" is initialized with 0
 (expect "votes for Candidate C initialized" (get-votes "3") 0)
+
+;; test if it is not possible to insert candidate with existing key
+(expect-failure "it should not be possible to insert candidate with existing key" (insert-candidate { "key": "3", "name": "Candidate D" }))
+
+;; test if it is possible to add a single candidate
+(insert-candidate { "key": "4", "name": "Candidate D" })
+
+;; test if candidate "4" is stored 
+(expect "Candidate D stored" (read-candidate "4") { "key": "4", "name": "Candidate D", "votes": 0 })
+
+;; test if there are four candidates
+(expect "there should be four candidates" (length (list-candidates)) 4)
 
 (commit-tx)
 

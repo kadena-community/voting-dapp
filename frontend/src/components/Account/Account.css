@@ -11,7 +11,12 @@
   margin-bottom: 10px;
 }
 
-.Account-set-button {
+.Account-buttons {
+  display: flex;
+}
+
+.Account-button {
+  margin-right: 10px;
   font-weight: bold;
   width: 200px;
   height: 30px;

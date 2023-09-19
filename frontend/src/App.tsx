@@ -1,22 +1,34 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Account } from './Account/Account'
-import { Candidates } from './Candidates/Candidates'
-import { hasUserVoted, vote } from './contract'
+import { Account } from './components/Account/Account'
+import { Candidates } from './components/Candidates/Candidates'
 import './App.css'
+import { voteService } from './services/VoteService'
+import { candidateService } from './services/CandidateService'
+import { ICandidate } from './model/Candidate.interface'
 
 const App: React.FC = (): JSX.Element => {
   const [account, setAccount] = useState<string>('')
   const [voteAllowed, setVoteAllowed] = useState<boolean>(false)
   const [voteInProgress, setVoteInProgress] = useState<boolean>(false)
+  const [candidateAddingInProgress, setCandidateAddingInProgress] = useState<boolean>(false)
+  const [candidates, setCandidates] = useState<ICandidate[]>([])
+
+  const loadCandidates = async () => {
+    const candidates = await candidateService.listCandidates()
+    setCandidates(candidates)
+  }
 
   const getVoteStatus = useCallback(async () => {
     if (account) {
-      const voted = await hasUserVoted(account)
+      const voted = await voteService.hasAccountVoted(account)
       setVoteAllowed(!voted)
     } else {
       setVoteAllowed(false)
     }
-  }, [account])
+    if (candidateAddingInProgress === false) {
+      loadCandidates()
+    }
+  }, [account, candidateAddingInProgress])
 
   useEffect(() => {
     getVoteStatus()
@@ -24,9 +36,21 @@ const App: React.FC = (): JSX.Element => {
 
   const onVote = async (candidateId: string): Promise<void> => {
     setVoteInProgress(true)
-    await vote(account, candidateId)
+    await voteService.vote(account, candidateId)
     await getVoteStatus()
     setVoteInProgress(false)
+  }
+
+  const addCandidate = async (candidate: string): Promise<void> => {
+    setCandidateAddingInProgress(true)
+    await candidateService.addCandidate(JSON.parse(candidate) as ICandidate, account)
+    setCandidateAddingInProgress(false)
+  }
+
+  const addCandidates = async (candidates: string): Promise<void> => {
+    setCandidateAddingInProgress(true)
+    await candidateService.addCandidates(JSON.parse(candidates) as ICandidate[], account)
+    setCandidateAddingInProgress(false)
   }
 
   return (
@@ -37,8 +61,16 @@ const App: React.FC = (): JSX.Element => {
         </p>
       </header>
       <section className="Voting-section">
-        <Account onSetAccount={setAccount} account={account} voteAllowed={voteAllowed}/>
-        <Candidates voteAllowed={voteAllowed} voteInProgress={voteInProgress} onVote={onVote} />
+        <Account
+          onSetAccount={setAccount}
+          onAddCandidate={addCandidate}
+          onAddCandidates={addCandidates}
+          onRefreshCandidates={loadCandidates}
+          account={account}
+          voteAllowed={voteAllowed}
+          candidateAddingInProgress={candidateAddingInProgress}
+        />
+        <Candidates voteAllowed={voteAllowed} voteInProgress={voteInProgress} onVote={onVote} candidates={candidates} />
       </section>
     </div>
   )
