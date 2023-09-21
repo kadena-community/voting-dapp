@@ -1,15 +1,16 @@
-import { Backend, getBackend } from '../configuration';
+import { config } from '../configuration';
+import { Env } from '../types';
 import { IVoteRepository } from '../repositories/vote/VoteRepository.interface';
 import InMemoryVoteRepository from '../repositories/vote/InMemoryVoteRepository';
 import TestnetVoteRepository from '../repositories/vote/TestnetVoteRepository';
 import DevnetVoteRepository from '../repositories/vote/DevnetVoteRepository';
 
-const backendRepositoryMap: Record<Backend, IVoteRepository> = {
-  'in-memory': InMemoryVoteRepository,
-  devnet: DevnetVoteRepository,
-  testnet: TestnetVoteRepository,
+const backendRepositoryMap: Record<Env, IVoteRepository> = {
+  [Env.inMemory]: InMemoryVoteRepository,
+  [Env.devNet]: DevnetVoteRepository,
+  [Env.testNet]: TestnetVoteRepository,
 };
 
 export function createVoteRepository() {
-  return backendRepositoryMap[getBackend()];
+  return backendRepositoryMap[config.env];
 }

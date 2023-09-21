@@ -1,7 +1,9 @@
-export type Backend = 'in-memory' | 'devnet' | 'testnet';
+import { Env, Config } from './types';
 
-const defaultBackend: Backend = 'devnet';
+const defaultEnv: Env = Env.devNet;
 
-export function getBackend(): Backend {
-  return (import.meta.env.VITE_APP_BACKEND as Backend) || defaultBackend;
-}
+const BUILD_ENVIRONMENT: Env = import.meta.env.VITE_APP_BUILD_ENVIRONMENT || defaultEnv;
+
+export const config: Config = {
+  env: BUILD_ENVIRONMENT,
+};

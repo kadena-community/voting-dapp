@@ -7,9 +7,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "pactjs:generate:contracts": "pactjs contract-generate --file ../pact/election.pact; pactjs contract-generate --file ../pact/election-gas-station.pact; pactjs contract-generate --file ../pact/root/coin-v5.pact",
     "preview": "vite preview",
-    "start": "VITE_APP_BACKEND=devnet vite",
-    "start-in-memory": "VITE_APP_BACKEND=in-memory vite",
-    "start-testnet": "VITE_APP_BACKEND=testnet vite"
+    "start": "VITE_APP_BUILD_ENVIRONMENT=devNet vite",
+    "start-in-memory": "VITE_APP_BUILD_ENVIRONMENT=inMemory vite",
+    "start-testnet": "VITE_APP_BUILD_ENVIRONMENT=testNet vite"
   },
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",
