@@ -5,14 +5,12 @@ const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '1';
 const API_HOST = `https://api.testnet.chainweb.com/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
 
-const accountKey = (account: string): string => account.split(':')[1];
-
 const client = createClient(API_HOST);
 
 let candidates: ICandidate[] = [
-  { key: '1', name: 'Candidate A', votes: 0 },
-  { key: '2', name: 'Candidate B', votes: 0 },
-  { key: '3', name: 'Candidate C', votes: 0 },
+    { key: '1', name: 'Candidate A', votes: 0 },
+    { key: '2', name: 'Candidate B', votes: 0 },
+    { key: '3', name: 'Candidate C', votes: 0 },
 ];
 
 // @todo: update module and load from (list-candidates)
@@ -50,7 +48,7 @@ const getNumberOfVotesByCandidateKey = async (key: string): Promise<number> => {
     }
 };
 
-const incrementVotesByCandidateKey = (key: string): Promise<void> => {
+const incrementVotesByCandidateKey = (): Promise<void> => {
     // happens internally in the Pact module
     return Promise.resolve();
 };

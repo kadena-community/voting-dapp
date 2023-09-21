@@ -10,13 +10,13 @@ let candidates: ICandidate[] = [
 
 const listCandidates = (): Promise<ICandidate[]> => Promise.resolve(candidates);
 
-const addCandidate = (candidate: ICandidate, sender: string = ''): Promise<void> => {
+const addCandidate = (candidate: ICandidate): Promise<void> => {
     candidates.push(candidate)
 
     return Promise.resolve();
 };
 
-const addCandidates = (candidatesToAdd: ICandidate[], sender: string = ''): Promise<void> => {
+const addCandidates = (candidatesToAdd: ICandidate[]): Promise<void> => {
     candidates = [...candidates, ...candidatesToAdd];
 
     return Promise.resolve();

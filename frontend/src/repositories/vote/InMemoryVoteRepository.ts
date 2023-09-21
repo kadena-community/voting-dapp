@@ -1,7 +1,7 @@
 import { IVote } from '../../model/Vote.interface';
 import inMemoryCandidateRepository from '../candidate/InMemoryCandidateRepository';
 
-let votes: IVote[] = [];
+const votes: IVote[] = [];
 
 const hasAccountVoted = (account: string): Promise<boolean> => Promise.resolve(!! votes.find(vote => vote.account === account));
 

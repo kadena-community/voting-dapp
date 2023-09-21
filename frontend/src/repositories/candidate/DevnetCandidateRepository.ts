@@ -109,7 +109,7 @@ const getNumberOfVotesByCandidateKey = async (key: string): Promise<number> => {
     }
 };
 
-const incrementVotesByCandidateKey = (key: string): Promise<void> => {
+const incrementVotesByCandidateKey = (): Promise<void> => {
     // happens internally in the Pact module
     return Promise.resolve();
 };
