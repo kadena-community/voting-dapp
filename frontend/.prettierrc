@@ -1,0 +1,13 @@
+{
+  "arrowParens": "always",
+  "printWidth": 120,
+  "proseWrap": "always",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+  "endOfLine": "lf",
+  "bracketSpacing": true,
+  "plugins": ["prettier-plugin-packagejson"]
+}
