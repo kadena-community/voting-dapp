@@ -1,9 +1,7 @@
-export type Backend = 'in-memory' | 'devnet' | 'testnet';
+export type Backend = "in-memory" | "devnet" | "testnet";
 
-const backend: Backend = 'devnet';
-// const backend: Backend = 'testnet';
-// const backend: Backend = 'in-memory';
+const defaultBackend: Backend = "devnet";
 
 export function getBackend(): Backend {
-    return backend;
+  return (process.env.REACT_APP_BACKEND as Backend) || defaultBackend;
 }
