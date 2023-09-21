@@ -2,15 +2,23 @@
   "name": "snippets",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "main": "deploy-mainnet.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy-devnet": "node deploy-devnet.js",
+    "deploy-mainnet": "node deploy-mainnet.js",
+    "deploy-testnet": "node deploy-testnet.js",
+    "format": "prettier --write .",
+    "list-modules": "node list-modules.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",
     "@kadena/client": "latest"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "prettier-plugin-packagejson": "^2.4.5"
   }
 }

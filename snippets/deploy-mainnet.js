@@ -18,14 +18,14 @@ async function deployContract(pactCode) {
     gasLimit: 65000,
     chainId: CHAIN_ID,
     gasPrice: 0.000001,
-    sender: ACCOUNT_NAME // the account paying for gas
+    sender: ACCOUNT_NAME, // the account paying for gas
   };
   const pactCommand = new PactCommand()
     .setMeta(publicMeta, NETWORK_ID)
     .addCap('coin.GAS', PUBLIC_KEY)
     .addData({
       'election-admin-keyset': [PUBLIC_KEY],
-      upgrade: false
+      upgrade: false,
     });
   pactCommand.code = pactCode;
 
