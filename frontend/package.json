@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "start": "VITE_APP_BACKEND=devnet vite",
     "start-in-memory": "VITE_APP_BACKEND=in-memory vite",
-    "start-testnet": "VITE_APP_BACKEND=tesnet vite"
+    "start-testnet": "VITE_APP_BACKEND=testnet vite"
   },
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",
