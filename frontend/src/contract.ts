@@ -70,9 +70,9 @@ export const vote = async (account: string, candidateId: string): Promise<void> 
     )
     .addKeyset('ks', 'keys-all')
     .addSigner(accountKey(account), (withCapability) => [
-      // @ts-ignore 
+      // @ts-ignore
       withCapability('coin.GAS'),
-      // @ts-ignore 
+      // @ts-ignore
       withCapability('free.election.ACCOUNT-OWNER', account),
     ])
     .setMeta({

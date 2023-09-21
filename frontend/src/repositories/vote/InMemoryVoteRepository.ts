@@ -3,16 +3,17 @@ import inMemoryCandidateRepository from '../candidate/InMemoryCandidateRepositor
 
 const votes: IVote[] = [];
 
-const hasAccountVoted = (account: string): Promise<boolean> => Promise.resolve(!! votes.find(vote => vote.account === account));
+const hasAccountVoted = (account: string): Promise<boolean> =>
+  Promise.resolve(!!votes.find((vote) => vote.account === account));
 
 const vote = (account: string, candidateKey: string): Promise<void> => {
-    votes.push({ account, candidateKey });
-    inMemoryCandidateRepository.incrementVotesByCandidateKey(candidateKey);
+  votes.push({ account, candidateKey });
+  inMemoryCandidateRepository.incrementVotesByCandidateKey(candidateKey);
 
-    return Promise.resolve();
+  return Promise.resolve();
 };
 
 export default {
-    hasAccountVoted,
-    vote,
-}
+  hasAccountVoted,
+  vote,
+};

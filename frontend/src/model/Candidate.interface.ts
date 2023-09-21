@@ -1,5 +1,5 @@
 export interface ICandidate {
-    key: string;
-    name: string;
-    votes: number;
+  key: string;
+  name: string;
+  votes: number;
 }

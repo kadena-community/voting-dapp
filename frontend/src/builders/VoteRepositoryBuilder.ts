@@ -5,11 +5,11 @@ import TestnetVoteRepository from '../repositories/vote/TestnetVoteRepository';
 import DevnetVoteRepository from '../repositories/vote/DevnetVoteRepository';
 
 const backendRepositoryMap: Record<Backend, IVoteRepository> = {
-    'in-memory': InMemoryVoteRepository,
-    'devnet': DevnetVoteRepository,
-    'testnet': TestnetVoteRepository,
-}
+  'in-memory': InMemoryVoteRepository,
+  devnet: DevnetVoteRepository,
+  testnet: TestnetVoteRepository,
+};
 
-export function createVoteRepository () {
-    return backendRepositoryMap[getBackend()];
+export function createVoteRepository() {
+  return backendRepositoryMap[getBackend()];
 }

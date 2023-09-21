@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import './Candidate.css'
-import { ICandidate } from '../../model/Candidate.interface'
-import { candidateService } from '../../services/CandidateService'
+import React, { useState, useEffect } from 'react';
+import './Candidate.css';
+import { ICandidate } from '../../model/Candidate.interface';
+import { candidateService } from '../../services/CandidateService';
 
 interface IProps {
-  candidate: ICandidate
-  voteAllowed: boolean
-  voteInProgress: boolean
-  onVote: (candidateId: string) => void
+  candidate: ICandidate;
+  voteAllowed: boolean;
+  voteInProgress: boolean;
+  onVote: (candidateId: string) => void;
 }
 
-export const Candidate: React.FC<IProps> = ({ candidate: { key, name }, voteAllowed, voteInProgress, onVote }): JSX.Element => {
-  const [voteCount, setVoteCount] = useState<number>(0)
+export const Candidate: React.FC<IProps> = ({
+  candidate: { key, name },
+  voteAllowed,
+  voteInProgress,
+  onVote,
+}): JSX.Element => {
+  const [voteCount, setVoteCount] = useState<number>(0);
 
   const retrieveCandidateVotes = async (key: string) => {
     const votes = await candidateService.getNumberOfVotesByCandidateKey(key);
-    setVoteCount(votes)
-  }
+    setVoteCount(votes);
+  };
 
   useEffect(() => {
     if (!voteInProgress) {
-      retrieveCandidateVotes(key)
+      retrieveCandidateVotes(key);
     }
-  }, [key, voteInProgress, voteAllowed])
+  }, [key, voteInProgress, voteAllowed]);
 
   return (
     <section className="Candidate-row">
@@ -39,8 +44,10 @@ export const Candidate: React.FC<IProps> = ({ candidate: { key, name }, voteAllo
         <p className="Candidate-row-content">{voteCount}</p>
       </div>
       <div className="Candidate-vote-container">
-        <button disabled={!voteAllowed || voteInProgress} onClick={() => onVote(key)}>Vote Now</button>
+        <button disabled={!voteAllowed || voteInProgress} onClick={() => onVote(key)}>
+          Vote Now
+        </button>
       </div>
     </section>
-  )
-}
+  );
+};

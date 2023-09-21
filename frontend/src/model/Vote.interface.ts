@@ -1,4 +1,4 @@
 export interface IVote {
-    account: string;
-    candidateKey: string;
+  account: string;
+  candidateKey: string;
 }

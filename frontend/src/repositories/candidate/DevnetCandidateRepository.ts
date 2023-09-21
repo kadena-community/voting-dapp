@@ -30,12 +30,15 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 };
 
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
-    const transaction = Pact.builder
+  const transaction = Pact.builder
     .execution(
       // @ts-ignore
       Pact.modules['free.election']['insert-candidate'](candidate),
     )
-    .addData('election-admin-keyset', { keys: [accountKey(sender)], pred: 'keys-all' })
+    .addData('election-admin-keyset', {
+      keys: [accountKey(sender)],
+      pred: 'keys-all',
+    })
     .addSigner(accountKey(sender))
     .setMeta({ chainId: CHAIN_ID, senderAccount: sender })
     .setNetworkId(NETWORK_ID)
@@ -66,7 +69,10 @@ const addCandidates = async (candidatesToAdd: ICandidate[], sender: string = '')
       // @ts-ignore
       Pact.modules['free.election']['insert-candidates'](candidatesToAdd),
     )
-    .addData('election-admin-keyset', { keys: [accountKey(sender)], pred: 'keys-all' })
+    .addData('election-admin-keyset', {
+      keys: [accountKey(sender)],
+      pred: 'keys-all',
+    })
     .addSigner(accountKey(sender))
     .setMeta({ chainId: CHAIN_ID, senderAccount: sender })
     .setNetworkId(NETWORK_ID)
@@ -89,35 +95,35 @@ const addCandidates = async (candidatesToAdd: ICandidate[], sender: string = '')
       console.log(response.result);
     }
   }
-}
+};
 
 const getNumberOfVotesByCandidateKey = async (key: string): Promise<number> => {
-    const transaction = Pact.builder
-        // @ts-ignore get-votes
-        .execution(Pact.modules['free.election']['get-votes'](key))
-        .setMeta({ chainId: CHAIN_ID })
-        .setNetworkId(NETWORK_ID)
-        .createTransaction();
+  const transaction = Pact.builder
+    // @ts-ignore get-votes
+    .execution(Pact.modules['free.election']['get-votes'](key))
+    .setMeta({ chainId: CHAIN_ID })
+    .setNetworkId(NETWORK_ID)
+    .createTransaction();
 
-    const { result } = await client.dirtyRead(transaction);
+  const { result } = await client.dirtyRead(transaction);
 
-    if (result.status === 'success') {
-        return result.data.valueOf() as number;
-    } else {
-        console.log(result.error);
-        return 0;
-    }
+  if (result.status === 'success') {
+    return result.data.valueOf() as number;
+  } else {
+    console.log(result.error);
+    return 0;
+  }
 };
 
 const incrementVotesByCandidateKey = (): Promise<void> => {
-    // happens internally in the Pact module
-    return Promise.resolve();
+  // happens internally in the Pact module
+  return Promise.resolve();
 };
 
 export default {
-    listCandidates,
-    addCandidate,
-    addCandidates,
-    getNumberOfVotesByCandidateKey,
-    incrementVotesByCandidateKey,
-}
+  listCandidates,
+  addCandidate,
+  addCandidates,
+  getNumberOfVotesByCandidateKey,
+  incrementVotesByCandidateKey,
+};

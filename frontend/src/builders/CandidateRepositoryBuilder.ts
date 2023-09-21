@@ -5,11 +5,11 @@ import TestnetCandidateRepository from '../repositories/candidate/TestnetCandida
 import DevnetCandidateRepository from '../repositories/candidate/DevnetCandidateRepository';
 
 const backendRepositoryMap: Record<Backend, ICandidateRepository> = {
-    'in-memory': InMemoryCandidateRepository,
-    'devnet': DevnetCandidateRepository,
-    'testnet': TestnetCandidateRepository,
-}
+  'in-memory': InMemoryCandidateRepository,
+  devnet: DevnetCandidateRepository,
+  testnet: TestnetCandidateRepository,
+};
 
-export function createCandidateRepository () {
-    return backendRepositoryMap[getBackend()];
+export function createCandidateRepository() {
+  return backendRepositoryMap[getBackend()];
 }

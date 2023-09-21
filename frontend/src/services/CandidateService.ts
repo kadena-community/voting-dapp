@@ -18,5 +18,6 @@ export const candidateService: ICandidateService = {
   addCandidates: (candidates: ICandidate[], sender?: string): void => {
     candidateRepository.addCandidates(candidates, sender);
   },
-  getNumberOfVotesByCandidateKey: (key: string): Promise<number> => candidateRepository.getNumberOfVotesByCandidateKey(key),
-}
+  getNumberOfVotesByCandidateKey: (key: string): Promise<number> =>
+    candidateRepository.getNumberOfVotesByCandidateKey(key),
+};

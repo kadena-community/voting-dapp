@@ -20,7 +20,7 @@ export const Account: React.FC<AccountProps> = ({
   onAddCandidate,
   onAddCandidates,
   onRefreshCandidates,
-  candidateAddingInProgress
+  candidateAddingInProgress,
 }): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showCandidateModal, setShowCandidateModal] = useState<boolean>(false);
@@ -70,7 +70,11 @@ export const Account: React.FC<AccountProps> = ({
   );
 
   const renderAddCandidatesButton = () => (
-    <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => setShowCandidatesModal(true)}>
+    <button
+      className="Account-button"
+      disabled={candidateAddingInProgress}
+      onClick={() => setShowCandidatesModal(true)}
+    >
       Add Candidates
     </button>
   );
@@ -93,12 +97,12 @@ export const Account: React.FC<AccountProps> = ({
         {account && renderAddCandidatesButton()}
         {account && renderRefreshCandidatesButton()}
       </div>
-      {candidateAddingInProgress &&
+      {candidateAddingInProgress && (
         <div className="Candidates-progress">
           <span>Adding candidate...</span>
           <SpinnerRoundFilled size={30} color="#ed098f" />
         </div>
-      }
+      )}
       {showModal && (
         <Modal title="Provide your k:account" onClose={() => setShowModal(false)}>
           <div className="Account-input-wrapper">
@@ -123,11 +127,7 @@ export const Account: React.FC<AccountProps> = ({
       {showCandidatesModal && (
         <Modal title="Add candidates" onClose={() => setShowCandidatesModal(false)}>
           <div className="Account-input-wrapper">
-            <input
-              onChange={handleCandidatesChange}
-              value={candidatesInputValue}
-              className="Account-input"
-            />
+            <input onChange={handleCandidatesChange} value={candidatesInputValue} className="Account-input" />
             <button onClick={handleOnCandidatesSaveClick}>Save</button>
           </div>
         </Modal>

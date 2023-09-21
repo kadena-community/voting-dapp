@@ -10,11 +10,12 @@ const client = createClient(API_HOST);
 
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
+    // @ts-ignore user-voted
     .execution(Pact.modules['free.election']['user-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
-  const { result } = await client.dirtyRead(transaction)
+  const { result } = await client.dirtyRead(transaction);
 
   if (result.status === 'success') {
     return result.data.valueOf() as boolean;
@@ -22,7 +23,7 @@ const hasAccountVoted = async (account: string): Promise<boolean> => {
     console.log(result.error);
     return false;
   }
-}
+};
 
 const vote = async (account: string, candidateKey: string): Promise<void> => {
   const transaction = Pact.builder
@@ -33,7 +34,7 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
     .addKeyset('ks', 'keys-all')
     .addSigner(accountKey(account), (withCapability) => [
       // @ts-ignore
-      withCapability('free.election-gas-station.GAS_PAYER', account, { int: 0 }, { decimal: "0.0" }),
+      withCapability('free.election-gas-station.GAS_PAYER', account, { int: 0 }, { decimal: '0.0' }),
       // @ts-ignore
       withCapability('coin.GAS'),
       // @ts-ignore
@@ -63,6 +64,6 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
 };
 
 export default {
-    hasAccountVoted,
-    vote,
-}
+  hasAccountVoted,
+  vote,
+};

@@ -10,4 +10,4 @@ const voteRepository = createVoteRepository();
 export const voteService: IVoteService = {
   hasAccountVoted: (account: string): Promise<boolean> => voteRepository.hasAccountVoted(account),
   vote: (account: string, candidateKey: string): Promise<void> => voteRepository.vote(account, candidateKey),
-}
+};
