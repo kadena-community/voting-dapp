@@ -1,6 +1,5 @@
 import { config } from '../configuration';
-import { Env } from '../types';
-import { ICandidateRepository } from '../repositories/candidate/CandidateRepository.interface';
+import { Env, ICandidateRepository } from '../types';
 import InMemoryCandidateRepository from '../repositories/candidate/InMemoryCandidateRepository';
 import TestnetCandidateRepository from '../repositories/candidate/TestnetCandidateRepository';
 import DevnetCandidateRepository from '../repositories/candidate/DevnetCandidateRepository';

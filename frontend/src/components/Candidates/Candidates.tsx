@@ -2,7 +2,7 @@ import React from 'react';
 import { Candidate } from '../Candidate/Candidate';
 import { SpinnerRoundFilled } from 'spinners-react';
 import './Candidates.css';
-import { ICandidate } from '../../model/Candidate.interface';
+import { ICandidate } from '../../types';
 
 interface IProps {
   voteAllowed: boolean;

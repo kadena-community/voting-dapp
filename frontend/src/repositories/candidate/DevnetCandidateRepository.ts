@@ -1,5 +1,5 @@
-import { ICandidate } from '../../model/Candidate.interface';
 import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@kadena/client';
+import { ICandidate } from '../../types';
 
 const NETWORK_ID = 'fast-development';
 const CHAIN_ID = '1';

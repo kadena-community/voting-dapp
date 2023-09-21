@@ -1,6 +1,5 @@
 import { config } from '../configuration';
-import { Env } from '../types';
-import { IVoteRepository } from '../repositories/vote/VoteRepository.interface';
+import { Env, IVoteRepository } from '../types';
 import InMemoryVoteRepository from '../repositories/vote/InMemoryVoteRepository';
 import TestnetVoteRepository from '../repositories/vote/TestnetVoteRepository';
 import DevnetVoteRepository from '../repositories/vote/DevnetVoteRepository';

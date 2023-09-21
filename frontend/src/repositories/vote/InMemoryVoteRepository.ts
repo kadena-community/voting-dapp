@@ -1,4 +1,4 @@
-import { IVote } from '../../model/Vote.interface';
+import { IVote } from '../../types';
 import inMemoryCandidateRepository from '../candidate/InMemoryCandidateRepository';
 
 const votes: IVote[] = [];

@@ -1,5 +1,5 @@
-import { ICandidate } from '../../model/Candidate.interface';
 import { Pact, createClient } from '@kadena/client';
+import { ICandidate } from '../../types';
 
 const NETWORK_ID = 'testnet04';
 const CHAIN_ID = '1';

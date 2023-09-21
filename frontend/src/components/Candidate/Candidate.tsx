@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Candidate.css';
-import { ICandidate } from '../../model/Candidate.interface';
 import { candidateService } from '../../services/CandidateService';
+import { ICandidate } from '../../types';
 
 interface IProps {
   candidate: ICandidate;

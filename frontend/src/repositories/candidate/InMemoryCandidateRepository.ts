@@ -1,4 +1,4 @@
-import { ICandidate } from '../../model/Candidate.interface';
+import { ICandidate } from '../../types';
 
 let candidates: ICandidate[] = [
   { key: '1', name: 'Jamesgatia Wardanic', votes: 23 },

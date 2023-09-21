@@ -1,5 +1,5 @@
 import { createCandidateRepository } from '../builders/CandidateRepositoryBuilder';
-import { ICandidate } from '../model/Candidate.interface';
+import { ICandidate } from '../types';
 
 export interface ICandidateService {
   listCandidates: () => Promise<ICandidate[]>;
