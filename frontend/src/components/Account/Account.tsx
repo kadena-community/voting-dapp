@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import './Account.css';
 import { SpinnerRoundFilled } from 'spinners-react';
+import AccountActions from '../AccountActions';
 
 interface AccountProps {
   account: string;
@@ -63,28 +64,6 @@ export const Account: React.FC<AccountProps> = ({
     </div>
   );
 
-  const renderAddCandidateButton = () => (
-    <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => setShowCandidateModal(true)}>
-      Add Candidate
-    </button>
-  );
-
-  const renderAddCandidatesButton = () => (
-    <button
-      className="Account-button"
-      disabled={candidateAddingInProgress}
-      onClick={() => setShowCandidatesModal(true)}
-    >
-      Add Candidates
-    </button>
-  );
-
-  const renderRefreshCandidatesButton = () => (
-    <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => onRefreshCandidates()}>
-      Refresh Candidates
-    </button>
-  );
-
   return (
     <div className="Account">
       <h2>My Account</h2>
@@ -93,9 +72,14 @@ export const Account: React.FC<AccountProps> = ({
         <button className="Account-button" onClick={() => setShowModal(true)}>
           {account ? 'Update' : 'Set'} Account
         </button>
-        {account && renderAddCandidateButton()}
-        {account && renderAddCandidatesButton()}
-        {account && renderRefreshCandidatesButton()}
+        {account && (
+          <AccountActions
+            candidateAddingInProgress={candidateAddingInProgress}
+            onClickCandidate={setShowCandidateModal}
+            onClickCandidates={setShowCandidatesModal}
+            onRefreshCandidates={onRefreshCandidates}
+          />
+        )}
       </div>
       {candidateAddingInProgress && (
         <div className="Candidates-progress">
