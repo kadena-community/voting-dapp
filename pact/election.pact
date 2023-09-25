@@ -6,7 +6,7 @@
 
 ;; Define `election` module
 (module election GOVERNANCE
-  "Election demo module updated"
+  "Election demo module"
 
   (defcap GOVERNANCE ()
     "Module governance capability that only allows the admin to update this module"
@@ -21,7 +21,7 @@
     "Make sure the requester owns the KDA account"
 
     ;; Get the guard of the given KDA account using coin.details function
-    ;; and execute it using `enforce-guard`
+    ;; and execute it using `enforce-guard`F
     (enforce-guard (at 'guard (coin.details account)))
   )
 
