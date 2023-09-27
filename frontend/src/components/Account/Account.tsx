@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from '../Modal/Modal';
 import './Account.css';
 import { SpinnerRoundFilled } from 'spinners-react';
+import AccountDetails from '../AccountDetails';
 import AccountActions from '../AccountActions';
+import useAccount from './useAccount';
 
 interface AccountProps {
   account: string;
@@ -23,46 +25,28 @@ export const Account: React.FC<AccountProps> = ({
   onRefreshCandidates,
   candidateAddingInProgress,
 }): JSX.Element => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [showCandidateModal, setShowCandidateModal] = useState<boolean>(false);
-  const [showCandidatesModal, setShowCandidatesModal] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
-  const [candidateInputValue, setCandidateInputValueInputValue] = useState<string>('');
-  const [candidatesInputValue, setCandidatesInputValueInputValue] = useState<string>('');
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value);
-  };
-
-  const handleOnSaveClick = (): void => {
-    setShowModal(false);
-    onSetAccount(inputValue);
-  };
-
-  const handleCandidateChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setCandidateInputValueInputValue(event.target.value);
-  };
-
-  const handleOnCandidateSaveClick = (): void => {
-    setShowCandidateModal(false);
-    onAddCandidate(candidateInputValue);
-  };
-
-  const handleCandidatesChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setCandidatesInputValueInputValue(event.target.value);
-  };
-
-  const handleOnCandidatesSaveClick = (): void => {
-    setShowCandidatesModal(false);
-    onAddCandidates(candidatesInputValue);
-  };
-
-  const renderAccountDetails = () => (
-    <div className="Account-details">
-      <span>{account}</span>
-      {voteAllowed ? <span>Please cast your vote below!</span> : <span>You have already voted!</span>}
-    </div>
-  );
+  const {
+    showModal,
+    setShowModal,
+    showCandidateModal,
+    setShowCandidateModal,
+    showCandidatesModal,
+    setShowCandidatesModal,
+    handleSetAccount,
+    handleInputChange,
+    handleOnSaveClick,
+    handleCandidateChange,
+    handleOnCandidateSaveClick,
+    handleCandidatesChange,
+    handleOnCandidatesSaveClick,
+    candidateInputValue,
+    candidatesInputValue,
+    inputValue,
+  } = useAccount({
+    onSetAccount,
+    onAddCandidate,
+    onAddCandidates,
+  });
 
   return (
     <div className="Account">
