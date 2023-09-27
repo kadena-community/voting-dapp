@@ -6,12 +6,13 @@ interface IProps {
   title: string;
   onClose: () => void;
   children?: ReactNode;
+  open?: boolean;
 }
 
-export const Modal: React.FC<IProps> = ({ title, onClose, children }): JSX.Element => {
+export const Modal: React.FC<IProps> = ({ title, onClose, children, open = false }): JSX.Element => {
   return (
     <div>
-      <ReactResponsiveModal open onClose={onClose} closeOnEsc={false} center>
+      <ReactResponsiveModal onClose={onClose} closeOnEsc={false} center open={open}>
         <h2>{title}</h2>
         {children}
       </ReactResponsiveModal>
