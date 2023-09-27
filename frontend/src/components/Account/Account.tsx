@@ -67,20 +67,16 @@ export const Account: React.FC<AccountProps> = ({
   return (
     <div className="Account">
       <h2>My Account</h2>
-      {account && renderAccountDetails()}
-      <div className="Account-buttons">
-        <button className="Account-button" onClick={() => setShowModal(true)}>
-          {account ? 'Update' : 'Set'} Account
-        </button>
-        {account && (
-          <AccountActions
-            candidateAddingInProgress={candidateAddingInProgress}
-            onClickCandidate={setShowCandidateModal}
-            onClickCandidates={setShowCandidatesModal}
-            onRefreshCandidates={onRefreshCandidates}
-          />
-        )}
-      </div>
+      <AccountDetails account={account} voteAllowed={voteAllowed} />
+      <AccountActions
+        account={account}
+        candidateAddingInProgress={candidateAddingInProgress}
+        onSetAccount={handleSetAccount}
+        onClickCandidate={setShowCandidateModal}
+        onClickCandidates={setShowCandidatesModal}
+        onRefreshCandidates={onRefreshCandidates}
+      />
+
       {candidateAddingInProgress && (
         <div className="Candidates-progress">
           <span>Adding candidate...</span>

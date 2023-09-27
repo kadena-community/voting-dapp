@@ -1,30 +1,38 @@
 import React from 'react';
 
-interface IProps {
+import AccountActionsList from '../AccountActionsList';
+
+interface IAccountActionsProps {
+  account?: string;
   candidateAddingInProgress: boolean;
   onClickCandidate: (showCandidateModal: boolean) => void;
   onClickCandidates: (showCandidatesModal: boolean) => void;
   onRefreshCandidates: () => void;
+  onSetAccount: () => void;
 }
 
-const AccountActions: React.FC<IProps> = ({
-  candidateAddingInProgress,
+const AccountActions: React.FC<IAccountActionsProps> = ({
+  account,
   onClickCandidate,
   onClickCandidates,
   onRefreshCandidates,
-}): JSX.Element => {
+  onSetAccount,
+  candidateAddingInProgress = false,
+}) => {
   return (
-    <>
-      <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => onClickCandidate(true)}>
-        Add Candidate
+    <div className="Account-buttons">
+      <button className="Account-button" onClick={onSetAccount}>
+        {account ? 'Update' : 'Set'} Account
       </button>
-      <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => onClickCandidates(true)}>
-        Add Candidates
-      </button>
-      <button className="Account-button" disabled={candidateAddingInProgress} onClick={() => onRefreshCandidates()}>
-        Refresh Candidates
-      </button>
-    </>
+      {account && (
+        <AccountActionsList
+          candidateAddingInProgress={candidateAddingInProgress}
+          onClickCandidate={onClickCandidate}
+          onClickCandidates={onClickCandidates}
+          onRefreshCandidates={onRefreshCandidates}
+        />
+      )}
+    </div>
   );
 };
 
