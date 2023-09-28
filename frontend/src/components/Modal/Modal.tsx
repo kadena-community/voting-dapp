@@ -11,11 +11,9 @@ interface IModalProps {
 
 export const Modal: React.FC<IModalProps> = ({ title, onClose, children, open = false }): JSX.Element => {
   return (
-    <div>
-      <ReactResponsiveModal onClose={onClose} closeOnEsc={false} center open={open}>
-        <h2>{title}</h2>
-        {children}
-      </ReactResponsiveModal>
-    </div>
+    <ReactResponsiveModal onClose={onClose} closeOnEsc={false} center open={open}>
+      <h2>{title}</h2>
+      {children}
+    </ReactResponsiveModal>
   );
 };
