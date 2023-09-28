@@ -32,13 +32,13 @@ export const Account: React.FC<AccountProps> = ({
     setShowCandidateModal,
     showCandidatesModal,
     setShowCandidatesModal,
-    handleSetAccount,
-    handleInputChange,
-    handleOnSaveClick,
-    handleCandidateChange,
-    handleOnCandidateSaveClick,
-    handleCandidatesChange,
-    handleOnCandidatesSaveClick,
+    onHandleSetAccount,
+    onHandleInputChange,
+    onHandleSave,
+    onHandleCandidateChange,
+    onHandleCandidateSave,
+    onHandleCandidatesChange,
+    onHandleCandidatesSave,
     candidateInputValue,
     candidatesInputValue,
     inputValue,
@@ -55,7 +55,7 @@ export const Account: React.FC<AccountProps> = ({
       <AccountActions
         account={account}
         candidateAddingInProgress={candidateAddingInProgress}
-        onSetAccount={handleSetAccount}
+        onSetAccount={onHandleSetAccount}
         onClickCandidate={setShowCandidateModal}
         onClickCandidates={setShowCandidatesModal}
         onRefreshCandidates={onRefreshCandidates}
@@ -69,25 +69,25 @@ export const Account: React.FC<AccountProps> = ({
       )}
       <Modal title="Provide your k:account" onClose={() => setShowModal(false)} open={showModal}>
         <div className="Account-input-wrapper">
-          <input onChange={handleInputChange} value={inputValue} className="Account-input"></input>
-          <button onClick={handleOnSaveClick}>Save</button>
+          <input onChange={onHandleInputChange} value={inputValue} className="Account-input"></input>
+          <button onClick={onHandleSave}>Save</button>
         </div>
       </Modal>
       <Modal title="Add a candidate" onClose={() => setShowCandidateModal(false)} open={showCandidateModal}>
         <div className="Account-input-wrapper">
           <input
-            onChange={handleCandidateChange}
+            onChange={onHandleCandidateChange}
             value={candidateInputValue}
             className="Account-input"
             placeholder={'{ "key": "6", "name": "Kuromi" }'}
           />
-          <button onClick={handleOnCandidateSaveClick}>Save</button>
+          <button onClick={onHandleCandidateSave}>Save</button>
         </div>
       </Modal>
       <Modal title="Add candidates" onClose={() => setShowCandidatesModal(false)} open={showCandidatesModal}>
         <div className="Account-input-wrapper">
-          <input onChange={handleCandidatesChange} value={candidatesInputValue} className="Account-input" />
-          <button onClick={handleOnCandidatesSaveClick}>Save</button>
+          <input onChange={onHandleCandidatesChange} value={candidatesInputValue} className="Account-input" />
+          <button onClick={onHandleCandidatesSave}>Save</button>
         </div>
       </Modal>
     </div>

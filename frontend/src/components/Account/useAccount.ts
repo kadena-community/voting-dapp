@@ -13,13 +13,13 @@ interface IUseAccountHookReturn {
   setShowCandidateModal: React.Dispatch<React.SetStateAction<boolean>>;
   showCandidatesModal: boolean;
   setShowCandidatesModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSetAccount: () => void;
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnSaveClick: () => void;
-  handleCandidateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnCandidateSaveClick: () => void;
-  handleCandidatesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnCandidatesSaveClick: () => void;
+  onHandleSetAccount: () => void;
+  onHandleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onHandleSave: () => void;
+  onHandleCandidateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onHandleCandidateSave: () => void;
+  onHandleCandidatesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onHandleCandidatesSave: () => void;
   candidateInputValue: string;
   candidatesInputValue: string;
   inputValue: string;
@@ -37,34 +37,34 @@ export default function useAccount({
   const [candidateInputValue, setCandidateInputValueInputValue] = useState<string>('');
   const [candidatesInputValue, setCandidatesInputValueInputValue] = useState<string>('');
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onHandleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
 
-  const handleOnSaveClick = (): void => {
+  const onHandleSave = (): void => {
     setShowModal(false);
     onSetAccount(inputValue);
   };
 
-  const handleCandidateChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onHandleCandidateChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setCandidateInputValueInputValue(event.target.value);
   };
 
-  const handleOnCandidateSaveClick = (): void => {
+  const onHandleCandidateSave = (): void => {
     setShowCandidateModal(false);
     onAddCandidate(candidateInputValue);
   };
 
-  const handleCandidatesChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onHandleCandidatesChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setCandidatesInputValueInputValue(event.target.value);
   };
 
-  const handleOnCandidatesSaveClick = (): void => {
+  const onHandleCandidatesSave = (): void => {
     setShowCandidatesModal(false);
     onAddCandidates(candidatesInputValue);
   };
 
-  const handleSetAccount = (): void => {
+  const onHandleSetAccount = (): void => {
     setShowModal(true);
   };
 
@@ -75,13 +75,13 @@ export default function useAccount({
     setShowCandidateModal,
     showCandidatesModal,
     setShowCandidatesModal,
-    handleSetAccount,
-    handleInputChange,
-    handleOnSaveClick,
-    handleCandidateChange,
-    handleOnCandidateSaveClick,
-    handleCandidatesChange,
-    handleOnCandidatesSaveClick,
+    onHandleSetAccount,
+    onHandleInputChange,
+    onHandleSave,
+    onHandleCandidateChange,
+    onHandleCandidateSave,
+    onHandleCandidatesChange,
+    onHandleCandidatesSave,
     candidateInputValue,
     candidatesInputValue,
     inputValue,
