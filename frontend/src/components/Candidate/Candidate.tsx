@@ -3,14 +3,14 @@ import './Candidate.css';
 import { candidateService } from '../../services/CandidateService';
 import { ICandidate } from '../../types';
 
-interface IProps {
+interface ICandidateProps {
   candidate: ICandidate;
   voteAllowed: boolean;
   voteInProgress: boolean;
   onVote: (candidateId: string) => void;
 }
 
-export const Candidate: React.FC<IProps> = ({
+export const Candidate: React.FC<ICandidateProps> = ({
   candidate: { key, name },
   voteAllowed,
   voteInProgress,

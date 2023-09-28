@@ -1,13 +1,13 @@
 import React from 'react';
 
-interface IProps {
+interface IAccountActionsListProps {
   candidateAddingInProgress: boolean;
   onClickCandidate: (showCandidateModal: boolean) => void;
   onClickCandidates: (showCandidatesModal: boolean) => void;
   onRefreshCandidates: () => void;
 }
 
-const AccountActionsList: React.FC<IProps> = ({
+const AccountActionsList: React.FC<IAccountActionsListProps> = ({
   candidateAddingInProgress,
   onClickCandidate,
   onClickCandidates,

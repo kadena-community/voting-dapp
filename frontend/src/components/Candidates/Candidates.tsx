@@ -4,14 +4,19 @@ import { SpinnerRoundFilled } from 'spinners-react';
 import './Candidates.css';
 import { ICandidate } from '../../types';
 
-interface IProps {
+interface ICandidatesProps {
   voteAllowed: boolean;
   voteInProgress: boolean;
   onVote: (candidateId: string) => void;
   candidates: ICandidate[];
 }
 
-export const Candidates: React.FC<IProps> = ({ voteAllowed, voteInProgress, onVote, candidates }): JSX.Element => {
+export const Candidates: React.FC<ICandidatesProps> = ({
+  voteAllowed,
+  voteInProgress,
+  onVote,
+  candidates,
+}): JSX.Element => {
   return (
     <div className="Candidates">
       <header className="Candidates-heading">
