@@ -1,0 +1,89 @@
+(env-data
+  { 'my-ks :
+    { 'keys : [ 'my-public-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+(env-sigs
+  [{ 'key  : 'my-public-key
+   , 'caps : []
+  }]
+)
+(begin-tx
+  "Prepare a dummy name space so we can start registering keysets"
+)
+(define-namespace 'free (read-keyset 'my-ks) (read-keyset 'my-ks))
+(commit-tx)
+(env-data {})
+(env-sigs [])
+
+(env-data
+  { 'my-ks :
+    { 'keys : [ 'my-public-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+(env-sigs
+  [{ 'key  : 'my-public-key
+   , 'caps : []
+  }]
+)
+(begin-tx
+  "Define a new keyset"
+)
+(namespace 'free)
+(define-keyset "free.my-ks" (read-keyset 'my-ks))
+(commit-tx)
+(env-data {})
+(env-sigs [])
+
+(env-data
+  { 'my-ks :
+    { 'keys : [ 'my-other-public-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+(env-sigs
+  [{ 'key  : 'my-other-public-key
+   , 'caps : []
+  }]
+)
+(begin-tx
+  "Defining a keyset that is already defined using a different keyset fails"
+)
+(namespace 'free)
+(expect-failure
+  "keyset definition is already defined using a different keyset"
+  "Keyset failure (keys-all): 'free.my-ks"
+  (define-keyset "free.my-ks" (read-keyset 'my-ks))
+)
+(commit-tx)
+(env-data {})
+(env-sigs [])
+
+(env-data
+  { 'my-ks :
+    { 'keys : [ 'my-other-public-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+(env-sigs
+  [{ 'key  : 'my-other-public-key
+   , 'caps : []
+  }
+  ,{ 'key  : 'my-public-key
+   , 'caps : []
+  }]
+)
+(begin-tx
+  "Rotating my existing keyset to a new keyset works if I first sign with the old key"
+)
+(namespace 'free)
+(define-keyset "free.my-ks" (read-keyset 'my-ks))
+(commit-tx)
+(env-data {})
+(env-sigs [])

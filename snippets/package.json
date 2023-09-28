@@ -11,14 +11,18 @@
     "deploy-mainnet": "node deploy-mainnet.js",
     "deploy-testnet": "node deploy-testnet.js",
     "format": "prettier --write .",
-    "list-modules": "node list-modules.js",
-    "list-modules:devnet": "KADENA_NETWORK=devnet ts-node ./list-modules.ts"
+    "list-modules:devnet": "KADENA_NETWORK=devnet ts-node ./list-modules.ts",
+    "transfer-create:devnet": "KADENA_NETWORK=devnet ts-node ./transfer-create.ts",
+    "coin-details:devnet": "KADENA_NETWORK=devnet ts-node ./coin-details.ts",
+    "generate-types:coin:devnet": "pactjs contract-generate --contract coin --api http://localhost:8080/chainweb/0.0/fast-development/chain/1/pact"
   },
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",
-    "@kadena/client": "latest"
+    "@kadena/client": "latest",
+    "@kadena/pactjs": "^0.3.2"
   },
   "devDependencies": {
+    "@kadena/pactjs-cli": "^1.4.0",
     "@types/node": "^20.6.5",
     "prettier": "^3.0.3",
     "prettier-plugin-packagejson": "^2.4.5",
