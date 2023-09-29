@@ -14,6 +14,7 @@
     "list-modules:devnet": "KADENA_NETWORK=devnet ts-node ./list-modules.ts",
     "transfer-create:devnet": "KADENA_NETWORK=devnet ts-node ./transfer-create.ts",
     "create-namespace:devnet": "KADENA_NETWORK=devnet ts-node ./principal-namespace.ts",
+    "define-keyset:devnet": "KADENA_NETWORK=devnet ts-node ./define-keyset.ts",
     "coin-details:devnet": "KADENA_NETWORK=devnet ts-node ./coin-details.ts",
     "generate-types:coin:devnet": "pactjs contract-generate --contract coin --api http://localhost:8080/chainweb/0.0/fast-development/chain/1/pact"
   },
