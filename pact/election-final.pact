@@ -25,12 +25,6 @@
     (enforce-guard (at 'guard (coin.details account)))
   )
 
-  (defcap VOTED (candidateId:string)
-    "Emit an event that indicates a vote has been made for the provided candidate"
-    @event
-    true
-  )
-
   ;; Define the `candidates-schema` schema
   (defschema candidates-schema
     "Candidates table schema"

@@ -9,6 +9,7 @@ if (! process.argv[2]) {
 }
 
 const upgrade = process.argv[3] === 'upgrade';
+const initCandidates = process.argv[4] === 'init-candidates';
 
 const accountKey = (account: string): string => account.split(':')[1];
 
@@ -28,6 +29,7 @@ async function main(account: string, upgrade: boolean) {
     .addSigner(accountKey(account))
     .addData('election-admin-keyset', { keys: [accountKey(account)], pred: 'keys-all' })
     .addData('upgrade', upgrade)
+    .addData('init-candidates', initCandidates)
     .createTransaction();
   const signedTx = await signWithChainweaver(transaction);
 
