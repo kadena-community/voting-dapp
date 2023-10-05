@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal } from '../Modal/Modal';
+import { FC } from 'react';
+import Modal from '../Modal';
 import './Account.css';
 import { SpinnerRoundFilled } from 'spinners-react';
 import AccountDetails from '../AccountDetails';
@@ -16,7 +16,7 @@ interface AccountProps {
   candidateAddingInProgress: boolean;
 }
 
-export const Account: React.FC<AccountProps> = ({
+export const Account: FC<AccountProps> = ({
   account,
   voteAllowed,
   onSetAccount,

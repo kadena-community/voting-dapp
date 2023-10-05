@@ -4,7 +4,7 @@ import * as fs from 'node:fs';
 
 const client = createClient(getApiHost());
 
-if (! process.argv[2]) {
+if (!process.argv[2]) {
   console.error('Please specify a Kadena account.');
 }
 
@@ -34,7 +34,7 @@ async function main(account: string, upgrade: boolean) {
   const signedTx = await signWithChainweaver(transaction);
 
   const preflightResponse = await client.preflight(signedTx);
-  console.log(preflightResponse)
+  console.log(preflightResponse);
 
   if (preflightResponse.result.status === 'success' && isSignedTransaction(signedTx)) {
     const transactionDescriptor = await client.submit(signedTx);

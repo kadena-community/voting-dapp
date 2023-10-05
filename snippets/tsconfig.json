@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
-    "types": [".kadena/pactjs-generated"]
+    "lib": ["ES2015", "ES2020"],
+    "types": [".kadena/pactjs-generated", "node"]
   }
 }

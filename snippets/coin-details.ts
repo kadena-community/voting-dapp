@@ -1,7 +1,7 @@
 import { Pact, createClient } from '@kadena/client';
 import { getApiHost, getChainId, getNetworkId } from './configuration';
 
-if (! process.argv[2]) {
+if (!process.argv[2]) {
   console.error('Please specify a Kadena account.');
 }
 

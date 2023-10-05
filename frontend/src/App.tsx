@@ -4,7 +4,7 @@ import { Candidates } from './components/Candidates/Candidates';
 import './App.css';
 import { voteService } from './services/VoteService';
 import { candidateService } from './services/CandidateService';
-import { ICandidate } from './model/Candidate.interface';
+import { ICandidate } from './types';
 
 const App: React.FC = (): JSX.Element => {
   const [account, setAccount] = useState<string>('');

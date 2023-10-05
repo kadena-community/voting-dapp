@@ -3,7 +3,7 @@ import { getApiHost, getChainId, getNetworkId } from './configuration';
 
 const client = createClient(getApiHost());
 
-if (! process.argv[2]) {
+if (!process.argv[2]) {
   console.error('Please specify a Kadena account.');
 }
 
@@ -16,7 +16,7 @@ async function main(account: string) {
     (let ((ns-name (ns.create-principal-namespace (read-keyset 'admin-keyset))))
       (define-namespace ns-name (read-keyset 'admin-keyset ) (read-keyset 'admin-keyset ))
     )
-  `
+  `;
   const transaction = Pact.builder
     .execution(pactCommand)
     .addData('admin-keyset', {

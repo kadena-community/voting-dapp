@@ -4,7 +4,7 @@ import { getApiHost, getChainId, getNetworkId } from './configuration';
 
 const client = createClient(getApiHost());
 
-if (! process.argv[2]) {
+if (!process.argv[2]) {
   console.error('Please specify a Kadena account.');
 }
 
@@ -14,13 +14,7 @@ const FUNDING_ACCOUNT_PRIVATE_KEY = '251a920c403ae8c8f65f59142316af3c82b631fba46
 
 const accountKey = (account: string): string => account.split(':')[1];
 
-main(
-  FUNDING_ACCOUNT,
-  FUNDING_ACCOUNT_PUBLIC_KEY,
-  FUNDING_ACCOUNT_PRIVATE_KEY,
-  process.argv[2],
-  20,
-);
+main(FUNDING_ACCOUNT, FUNDING_ACCOUNT_PUBLIC_KEY, FUNDING_ACCOUNT_PRIVATE_KEY, process.argv[2], 20);
 
 async function main(
   sender: string,
@@ -32,9 +26,7 @@ async function main(
   const pactAmount = new PactNumber(amount).toPactDecimal();
 
   const transaction = Pact.builder
-    .execution(
-      Pact.modules.coin['transfer-create'](sender, receiver, () => '(read-keyset "ks")', pactAmount),
-    )
+    .execution(Pact.modules.coin['transfer-create'](sender, receiver, () => '(read-keyset "ks")', pactAmount))
     .addData('ks', {
       keys: [accountKey(receiver)],
       pred: 'keys-all',
