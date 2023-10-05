@@ -32,10 +32,6 @@ export const Candidate: React.FC<ICandidateProps> = ({
   return (
     <section className="Candidate-row">
       <div>
-        <span className="Candidate-row-header">Key</span>
-        <p className="Candidate-row-content">{key}</p>
-      </div>
-      <div>
         <span className="Candidate-row-header">Name</span>
         <p className="Candidate-row-content">{name}</p>
       </div>
