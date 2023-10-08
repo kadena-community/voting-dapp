@@ -10,6 +10,7 @@ if (!process.argv[2]) {
 
 const upgrade = process.argv[3] === 'upgrade';
 const initCandidates = process.argv[4] === 'init-candidates';
+const initVotes = process.argv[4] === 'init-votes';
 
 const accountKey = (account: string): string => account.split(':')[1];
 
@@ -30,7 +31,9 @@ async function main(account: string, upgrade: boolean) {
     .addData('election-admin-keyset', { keys: [accountKey(account)], pred: 'keys-all' })
     .addData('upgrade', upgrade)
     .addData('init-candidates', initCandidates)
+    .addData('init-votes', initVotes)
     .createTransaction();
+
   const signedTx = await signWithChainweaver(transaction);
 
   const preflightResponse = await client.preflight(signedTx);

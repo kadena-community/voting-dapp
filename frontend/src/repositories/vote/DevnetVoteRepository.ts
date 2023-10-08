@@ -3,14 +3,15 @@ import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@k
 const NETWORK_ID = 'fast-development';
 const CHAIN_ID = '1';
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
+const NAMESPACE = 'n_fd020525c953aa002f20fb81a920982b175cdf1a';
 
 const client = createClient(API_HOST);
 const accountKey = (account: string) => account.split(':')[1];
 
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
-    // @ts-ignore user-voted
-    .execution(Pact.modules['free.election']['user-voted'](account))
+    // @ts-ignore account-voted
+    .execution(Pact.modules[`${NAMESPACE}.election`]['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
@@ -24,27 +25,29 @@ const hasAccountVoted = async (account: string): Promise<boolean> => {
   }
 };
 
-const vote = async (account: string, candidateKey: string): Promise<void> => {
+const vote = async (account: string, candidateName: string): Promise<void> => {
   const transaction = Pact.builder
     .execution(
       // @ts-ignore
-      Pact.modules['free.election'].vote(account, candidateKey),
+      Pact.modules[`${NAMESPACE}.election`].vote(account, candidateName),
     )
-    .addKeyset('ks', 'keys-all')
-    .addSigner(accountKey(account), (withCapability) => [
-      // @ts-ignore
-      withCapability('free.election-gas-station.GAS_PAYER', account, { int: 0 }, { decimal: '0.0' }),
-      // @ts-ignore
-      withCapability('coin.GAS'),
-      // @ts-ignore
-      withCapability('free.election.ACCOUNT-OWNER', account),
-    ])
+    .addKeyset('voter-keyset', 'keys-all')
+    .addSigner(accountKey(account))
+    // .addSigner(accountKey(account), (withCapability) => [
+    //   // @ts-ignore
+    //   withCapability(`${NAMESPACE}.election-gas-station.GAS_PAYER`, account, { int: 0 }, { decimal: '0.0' }),
+    //   // @ts-ignore
+    //   withCapability('coin.GAS'),
+    //   // @ts-ignore
+    //   withCapability(`${NAMESPACE}.election.ACCOUNT-OWNER`, account),
+    // ])
     .setMeta({
       chainId: CHAIN_ID,
       ttl: 28000,
       gasLimit: 100000,
       gasPrice: 0.000001,
-      senderAccount: 'election-gas-station',
+      // senderAccount: 'election-gas-station',
+      senderAccount: account,
     })
     .setNetworkId(NETWORK_ID)
     .createTransaction();

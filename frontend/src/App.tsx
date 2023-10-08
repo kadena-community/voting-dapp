@@ -15,6 +15,7 @@ const App: React.FC = (): JSX.Element => {
 
   const loadCandidates = async () => {
     const candidates = await candidateService.listCandidates();
+    console.log(candidates);
     setCandidates(candidates);
   };
 
@@ -47,12 +48,6 @@ const App: React.FC = (): JSX.Element => {
     setCandidateAddingInProgress(false);
   };
 
-  const addCandidates = async (candidates: string): Promise<void> => {
-    setCandidateAddingInProgress(true);
-    await candidateService.addCandidates(JSON.parse(candidates) as ICandidate[], account);
-    setCandidateAddingInProgress(false);
-  };
-
   return (
     <div className="App">
       <header className="App-header">
@@ -62,7 +57,6 @@ const App: React.FC = (): JSX.Element => {
         <Account
           onSetAccount={setAccount}
           onAddCandidate={addCandidate}
-          onAddCandidates={addCandidates}
           onRefreshCandidates={loadCandidates}
           account={account}
           voteAllowed={voteAllowed}

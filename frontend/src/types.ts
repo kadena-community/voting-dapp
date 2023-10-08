@@ -11,7 +11,9 @@ export type Config = {
 export interface ICandidate {
   key: string;
   name: string;
-  votes: number;
+  votes: {
+    int: number;
+  };
 }
 
 export interface IVote {
@@ -22,8 +24,6 @@ export interface IVote {
 export interface ICandidateRepository {
   listCandidates(): Promise<ICandidate[]>;
   addCandidate(candidate: ICandidate, sender?: string): Promise<void>;
-  addCandidates(candidates: ICandidate[], sender?: string): Promise<void>;
-  getNumberOfVotesByCandidateKey(key: string): Promise<number>;
   incrementVotesByCandidateKey(key: string): Promise<void>;
 }
 

@@ -11,7 +11,6 @@ interface AccountProps {
   voteAllowed: boolean;
   onSetAccount: (account: string) => void;
   onAddCandidate: (candidate: string) => void;
-  onAddCandidates: (candidates: string) => void;
   onRefreshCandidates: () => void;
   candidateAddingInProgress: boolean;
 }
@@ -21,7 +20,6 @@ export const Account: FC<AccountProps> = ({
   voteAllowed,
   onSetAccount,
   onAddCandidate,
-  onAddCandidates,
   onRefreshCandidates,
   candidateAddingInProgress,
 }): JSX.Element => {
@@ -30,22 +28,16 @@ export const Account: FC<AccountProps> = ({
     setShowModal,
     showCandidateModal,
     setShowCandidateModal,
-    showCandidatesModal,
-    setShowCandidatesModal,
     onHandleSetAccount,
     onHandleInputChange,
     onHandleSave,
     onHandleCandidateChange,
     onHandleCandidateSave,
-    onHandleCandidatesChange,
-    onHandleCandidatesSave,
     candidateInputValue,
-    candidatesInputValue,
     inputValue,
   } = useAccount({
     onSetAccount,
     onAddCandidate,
-    onAddCandidates,
   });
 
   return (
@@ -57,7 +49,6 @@ export const Account: FC<AccountProps> = ({
         candidateAddingInProgress={candidateAddingInProgress}
         onSetAccount={onHandleSetAccount}
         onClickCandidate={setShowCandidateModal}
-        onClickCandidates={setShowCandidatesModal}
         onRefreshCandidates={onRefreshCandidates}
       />
 
@@ -82,12 +73,6 @@ export const Account: FC<AccountProps> = ({
             placeholder={'{ "key": "6", "name": "Kuromi" }'}
           />
           <button onClick={onHandleCandidateSave}>Save</button>
-        </div>
-      </Modal>
-      <Modal title="Add candidates" onClose={() => setShowCandidatesModal(false)} open={showCandidatesModal}>
-        <div className="Account-input-wrapper">
-          <input onChange={onHandleCandidatesChange} value={candidatesInputValue} className="Account-input" />
-          <button onClick={onHandleCandidatesSave}>Save</button>
         </div>
       </Modal>
     </div>

@@ -10,8 +10,8 @@ const client = createClient(API_HOST);
 
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
-    // @ts-ignore user-voted
-    .execution(Pact.modules['free.election']['user-voted'](account))
+    // @ts-ignore account-voted
+    .execution(Pact.modules['free.election']['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
     .createTransaction();

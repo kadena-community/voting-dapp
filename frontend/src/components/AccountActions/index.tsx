@@ -6,7 +6,6 @@ interface IAccountActionsProps {
   account?: string;
   candidateAddingInProgress: boolean;
   onClickCandidate: (showCandidateModal: boolean) => void;
-  onClickCandidates: (showCandidatesModal: boolean) => void;
   onRefreshCandidates: () => void;
   onSetAccount: () => void;
 }
@@ -14,7 +13,6 @@ interface IAccountActionsProps {
 const AccountActions: React.FC<IAccountActionsProps> = ({
   account,
   onClickCandidate,
-  onClickCandidates,
   onRefreshCandidates,
   onSetAccount,
   candidateAddingInProgress = false,
@@ -28,7 +26,6 @@ const AccountActions: React.FC<IAccountActionsProps> = ({
         <AccountActionsList
           candidateAddingInProgress={candidateAddingInProgress}
           onClickCandidate={onClickCandidate}
-          onClickCandidates={onClickCandidates}
           onRefreshCandidates={onRefreshCandidates}
         />
       )}

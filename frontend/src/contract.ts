@@ -9,15 +9,15 @@ const accountKey = (account: string): string => account.split(':')[1];
 const client = createClient(API_HOST);
 
 /**
- * Call the user-voted function on the election contract to check if the user has voted before
+ * Call the account-voted function on the election contract to check if the user has voted before
  *
  * @param account - The user's account
  * @return boolean indiciation the vote status
  */
 export const hasUserVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
-    // @ts-ignore user-voted
-    .execution(Pact.modules['free.election']['user-voted'](account))
+    // @ts-ignore account-voted
+    .execution(Pact.modules['free.election']['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
