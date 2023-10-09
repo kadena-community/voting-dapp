@@ -1,0 +1,10 @@
+(load "setup.repl")
+
+(env-data
+  { 'init: true }
+)
+
+(begin-tx "Load election gas station module")
+  (load "root/gas-payer-v1.pact")
+  (load "election-gas-station.pact")
+(commit-tx)

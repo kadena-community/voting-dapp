@@ -9,16 +9,15 @@ if (!process.argv[2]) {
 }
 
 const upgrade = process.argv[3] === 'upgrade';
-const initCandidates = process.argv[4] === 'init-candidates';
-const initVotes = process.argv[4] === 'init-votes';
+const init = process.argv[4] === 'init';
 
 const accountKey = (account: string): string => account.split(':')[1];
 
-main(process.argv[2], upgrade);
+main(process.argv[2], upgrade, init);
 
-async function main(account: string, upgrade: boolean) {
+async function main(account: string, upgrade: boolean, init: boolean) {
   const transaction = Pact.builder
-    .execution(fs.readFileSync('../pact/election.pact', 'utf8'))
+    .execution(fs.readFileSync('../pact/election-gas-station.pact', 'utf8'))
     .setMeta({
       ttl: 28800,
       gasLimit: 100000,
@@ -30,8 +29,7 @@ async function main(account: string, upgrade: boolean) {
     .addSigner(accountKey(account))
     .addData('admin-keyset', { keys: [accountKey(account)], pred: 'keys-all' })
     .addData('upgrade', upgrade)
-    .addData('init-candidates', initCandidates)
-    .addData('init-votes', initVotes)
+    .addData('init', init)
     .createTransaction();
 
   const signedTx = await signWithChainweaver(transaction);

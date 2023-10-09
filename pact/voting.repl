@@ -42,10 +42,11 @@
   )
 (commit-tx)
 
-(begin-tx "Double vote")
+(begin-tx "Vote on behalf of another account")
   (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
   (expect-failure
-    "Double voting not allowed"
+    "Voting on behalf of another account should not be allowed"
+    "Keyset failure (keys-all): [voter]"
     (vote "voter" "1")
   )
 (commit-tx)
