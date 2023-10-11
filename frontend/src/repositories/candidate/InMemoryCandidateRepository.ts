@@ -11,6 +11,7 @@ let candidates: ICandidate[] = [
 const listCandidates = (): Promise<ICandidate[]> => Promise.resolve(candidates);
 
 const addCandidate = (candidate: ICandidate): Promise<void> => {
+  candidate.votes = { int: 0 }
   candidates.push(candidate);
 
   return Promise.resolve();

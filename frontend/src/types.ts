@@ -1,7 +1,6 @@
 export enum Env {
   inMemory = 'inMemory',
-  devNet = 'devNet',
-  testNet = 'testNet',
+  devnet = 'devnet',
 }
 
 export type Config = {

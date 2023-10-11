@@ -19,15 +19,9 @@ const accountKey = (account: string): string => account.split(':')[1];
 
 main(process.argv[2], process.argv[3], process.argv[4]);
 
-async function main(
-  sender: string,
-  receiver: string,
-  amount: string,
-) {
+async function main(sender: string, receiver: string, amount: string) {
   const transaction = Pact.builder
-    .execution(
-      Pact.modules.coin.transfer(sender, receiver, { decimal: amount }),
-    )
+    .execution(Pact.modules.coin.transfer(sender, receiver, { decimal: amount }))
     .addSigner(accountKey(sender), (withCapability) => [
       withCapability('coin.GAS'),
       withCapability('coin.TRANSFER', sender, receiver, { decimal: amount }),
