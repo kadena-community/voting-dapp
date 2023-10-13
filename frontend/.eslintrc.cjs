@@ -23,6 +23,7 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     '@typescript-eslint/ban-ts-comment': 'off',
     'import/no-default-export': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   settings: {
     'import/resolver': {

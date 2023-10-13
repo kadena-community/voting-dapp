@@ -7,8 +7,8 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext ts,tsx,js,jsx",
     "lint:fix": "eslint . --ext ts,tsx,js,jsx --fix",
-    "pactjs:generate:contracts": "pactjs contract-generate --file ../pact/election.pact; pactjs contract-generate --file ../pact/election-gas-station.pact; pactjs contract-generate --file ../pact/root/coin-v5.pact",
     "pactjs:generate:contract:election": "pactjs contract-generate --file ../pact/election.pact",
+    "pactjs:generate:contracts": "pactjs contract-generate --file ../pact/election.pact; pactjs contract-generate --file ../pact/election-gas-station.pact; pactjs contract-generate --file ../pact/root/coin-v5.pact",
     "preview": "vite preview",
     "start": "VITE_APP_BUILD_ENVIRONMENT=inMemory vite",
     "start-devnet": "VITE_APP_BUILD_ENVIRONMENT=devnet vite"

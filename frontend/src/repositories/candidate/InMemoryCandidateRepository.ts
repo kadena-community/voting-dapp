@@ -1,6 +1,6 @@
 import { ICandidate } from '../../types';
 
-let candidates: ICandidate[] = [
+const candidates: ICandidate[] = [
   { key: '1', name: 'Jamesgatia Wardanic', votes: { int: 23 } },
   { key: '2', name: 'Shazora Bradleflame', votes: { int: 15 } },
   { key: '3', name: "Isobel O'Quinn", votes: { int: 9 } },
@@ -11,7 +11,7 @@ let candidates: ICandidate[] = [
 const listCandidates = (): Promise<ICandidate[]> => Promise.resolve(candidates);
 
 const addCandidate = (candidate: ICandidate): Promise<void> => {
-  candidate.votes = { int: 0 }
+  candidate.votes = { int: 0 };
   candidates.push(candidate);
 
   return Promise.resolve();

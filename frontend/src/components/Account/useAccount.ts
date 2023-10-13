@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 interface IUseAccountProps {
   onSetAccount: (account: string) => void;
   onAddCandidate: (candidate: string) => void;
@@ -20,10 +19,7 @@ interface IUseAccountHookReturn {
   inputValue: string;
 }
 
-export default function useAccount({
-  onSetAccount,
-  onAddCandidate,
-}: IUseAccountProps): IUseAccountHookReturn {
+export default function useAccount({ onSetAccount, onAddCandidate }: IUseAccountProps): IUseAccountHookReturn {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showCandidateModal, setShowCandidateModal] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');

@@ -22,9 +22,7 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 
   const { result } = await client.dirtyRead(transaction);
 
-  return result.status === 'success'
-    ? result.data.valueOf() as ICandidate[]
-    : [];
+  return result.status === 'success' ? (result.data.valueOf() as ICandidate[]) : [];
 };
 
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
