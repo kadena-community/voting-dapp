@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import AccountActionsList from '../AccountActionsList';
 
@@ -10,7 +10,7 @@ interface IAccountActionsProps {
   onSetAccount: () => void;
 }
 
-const AccountActions: React.FC<IAccountActionsProps> = ({
+const AccountActions: FC<IAccountActionsProps> = ({
   account,
   onClickCandidate,
   onRefreshCandidates,

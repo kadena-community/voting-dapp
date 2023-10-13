@@ -1,4 +1,5 @@
-import React from 'react';
+import { FC } from 'react';
+
 import { Candidate } from '../Candidate/Candidate';
 import { SpinnerRoundFilled } from 'spinners-react';
 import './Candidates.css';
@@ -11,12 +12,7 @@ interface ICandidatesProps {
   candidates: ICandidate[];
 }
 
-export const Candidates: React.FC<ICandidatesProps> = ({
-  voteAllowed,
-  voteInProgress,
-  onVote,
-  candidates,
-}): JSX.Element => {
+export const Candidates: FC<ICandidatesProps> = ({ voteAllowed, voteInProgress, onVote, candidates }): JSX.Element => {
   return (
     <div className="Candidates">
       <header className="Candidates-heading">

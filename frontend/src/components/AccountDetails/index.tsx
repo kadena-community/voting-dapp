@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface AccountDetailsProps {
   account?: string;
   voteAllowed?: boolean;
 }
 
-const AccountDetails: React.FC<AccountDetailsProps> = ({ account, voteAllowed }) => {
+const AccountDetails: FC<AccountDetailsProps> = ({ account, voteAllowed }) => {
   if (!account) return null;
 
   return (

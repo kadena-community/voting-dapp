@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface IAccountActionsListProps {
   candidateAddingInProgress: boolean;
@@ -6,7 +6,7 @@ interface IAccountActionsListProps {
   onRefreshCandidates: () => void;
 }
 
-const AccountActionsList: React.FC<IAccountActionsListProps> = ({
+const AccountActionsList: FC<IAccountActionsListProps> = ({
   candidateAddingInProgress,
   onClickCandidate,
   onRefreshCandidates,
