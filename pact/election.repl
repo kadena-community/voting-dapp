@@ -1,4 +1,26 @@
-(load "setup.repl")
+(env-data
+  { 'admin-keyset:
+      { 'keys : [ "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" ]
+      , 'pred : 'keys-all
+      }
+  , 'init-candidates: true
+  }
+)
+
+(env-sigs
+  [{ 'key  : "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3"
+   , 'caps : []
+  }]
+)
+
+(begin-tx "Define principle namespace")
+  (define-namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a (read-keyset 'admin-keyset ) (read-keyset 'admin-keyset ))
+(commit-tx)
+
+(begin-tx "Define admin-keyset")
+  (namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a)
+  (define-keyset "n_fd020525c953aa002f20fb81a920982b175cdf1a.admin-keyset" (read-keyset 'admin-keyset ))
+(commit-tx)
 
 (begin-tx "Load election module")
   (load "election.pact")
