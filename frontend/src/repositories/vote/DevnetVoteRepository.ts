@@ -10,6 +10,7 @@ const accountKey = (account: string) => account.split(':')[1];
 
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
+    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
@@ -27,6 +28,7 @@ const hasAccountVoted = async (account: string): Promise<boolean> => {
 const vote = async (account: string, candidateName: string): Promise<void> => {
   const transaction = Pact.builder
     .execution(
+      // @ts-ignore
       Pact.modules[`${NAMESPACE}.election`].vote(account, candidateName),
     )
     .addData('voter-keyset', {
