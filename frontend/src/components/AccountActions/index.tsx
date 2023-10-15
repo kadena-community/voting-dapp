@@ -6,14 +6,12 @@ interface IAccountActionsProps {
   account?: string;
   candidateAddingInProgress: boolean;
   onClickCandidate: (showCandidateModal: boolean) => void;
-  onRefreshCandidates: () => void;
   onSetAccount: () => void;
 }
 
 const AccountActions: FC<IAccountActionsProps> = ({
   account,
   onClickCandidate,
-  onRefreshCandidates,
   onSetAccount,
   candidateAddingInProgress = false,
 }) => {
@@ -26,7 +24,6 @@ const AccountActions: FC<IAccountActionsProps> = ({
         <AccountActionsList
           candidateAddingInProgress={candidateAddingInProgress}
           onClickCandidate={onClickCandidate}
-          onRefreshCandidates={onRefreshCandidates}
         />
       )}
     </div>
