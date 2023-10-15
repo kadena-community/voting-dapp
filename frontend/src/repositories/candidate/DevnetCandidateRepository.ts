@@ -27,6 +27,7 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
   const transaction = Pact.builder
     .execution(
+      // @ts-ignore
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
     .addData('admin-keyset', {
