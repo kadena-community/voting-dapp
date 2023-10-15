@@ -11,6 +11,7 @@ const accountKey = (account: string) => account.split(':')[1];
 
 const listCandidates = async (): Promise<ICandidate[]> => {
   const transaction = Pact.builder
+    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['list-candidates']())
     .setMeta({
       chainId: CHAIN_ID,
