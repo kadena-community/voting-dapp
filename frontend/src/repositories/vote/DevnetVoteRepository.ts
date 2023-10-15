@@ -33,17 +33,13 @@ const vote = async (account: string, candidateName: string): Promise<void> => {
       keys: [accountKey(account)],
       pred: 'keys-all',
     })
-    .addSigner(accountKey(account), (withCapability: any) => [
-      withCapability(`${NAMESPACE}.election-gas-station.GAS_PAYER`, account, { int: 0 }, { decimal: '0.0' }),
-      withCapability('coin.GAS'),
-      withCapability(`${NAMESPACE}.election.ACCOUNT-OWNER`, account),
-    ])
+    .addSigner(accountKey(account))
     .setMeta({
       chainId: CHAIN_ID,
       ttl: 28000,
       gasLimit: 100000,
       gasPrice: 0.000001,
-      senderAccount: 'election-gas-station',
+      senderAccount: account,
     })
     .setNetworkId(NETWORK_ID)
     .createTransaction();

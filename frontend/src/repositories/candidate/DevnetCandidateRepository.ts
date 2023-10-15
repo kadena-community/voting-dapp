@@ -11,7 +11,6 @@ const accountKey = (account: string) => account.split(':')[1];
 
 const listCandidates = async (): Promise<ICandidate[]> => {
   const transaction = Pact.builder
-    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['list-candidates']())
     .setMeta({
       chainId: CHAIN_ID,
@@ -28,7 +27,6 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
   const transaction = Pact.builder
     .execution(
-      // @ts-ignore
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
     .addData('admin-keyset', {
