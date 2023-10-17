@@ -1,0 +1,125 @@
+(env-data
+  { 'admin-keyset :
+    { 'keys : [ 'admin-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+
+(env-sigs
+  [{ 'key  : 'admin-key
+   , 'caps : []
+  }]
+)
+
+(begin-tx
+  "Define a namespace for the module"
+)
+  (define-namespace 'election (read-keyset 'admin-keyset) (read-keyset 'admin-keyset))
+(commit-tx)
+
+(begin-tx
+  "Define a keyset to govern the module"
+)
+  (namespace 'election)
+  (define-keyset "election.admin-keyset" (read-keyset 'admin-keyset))
+(commit-tx)
+
+(begin-tx
+  "Deploy the election module"
+)
+  (module election "election.admin-keyset"
+    (defun list-candidates () [])
+  )
+(commit-tx)
+
+(begin-tx
+  "Look up the election module"
+)
+  (expect
+    "The election module should exist"
+    ["election"]
+    (list-modules)
+  )
+(commit-tx)
+
+(env-data {})
+(env-sigs [])
+
+(begin-tx
+  "Call updated list-candidates function"
+)
+  (expect
+    "list-candidates returns a list with numbers"
+    []
+    (election.list-candidates)
+  )
+(commit-tx)
+
+(env-data
+  { 'admin-keyset :
+    { 'keys : [ 'admin-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+
+(env-sigs
+  [{ 'key  : 'admin-key
+   , 'caps : []
+  }]
+)
+
+(begin-tx
+  "Upgrade the module"
+)
+  (module election "election.admin-keyset"
+    (defun list-candidates () [1, 2, 3])
+  )
+(commit-tx)
+
+;  (env-data
+;    { 'admin-keyset :
+;      { 'keys : [ 'other-key ]
+;      , 'pred : 'keys-all
+;      }
+;    }
+;  )
+
+;  (env-sigs
+;    [{ 'key  : 'other-key
+;     , 'caps : []
+;    }]
+;  )
+
+;  (begin-tx
+;    "Upgrade the module without permission"
+;  )
+;    (module election "election.admin-keyset"
+;      (defun list-candidates () [])
+;    )
+;  (commit-tx)
+
+(env-data
+  { 'admin-keyset :
+    { 'keys : [ 'admin-key ]
+    , 'pred : 'keys-all
+    }
+  }
+)
+
+(env-sigs
+  [{ 'key  : 'admin-key
+   , 'caps : []
+  }]
+)
+
+(begin-tx
+  "Refactor governance of the module"
+)
+  (module election GOVERNANCE
+    (defcap GOVERNANCE ()
+      (enforce-keyset "election.admin-keyset"))
+    (defun list-candidates () [1, 2, 3])
+  )
+(commit-tx)

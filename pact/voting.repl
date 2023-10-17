@@ -1,0 +1,68 @@
+(load "setup.repl")
+
+(begin-tx "Load election module")
+  (load "election.pact")
+(commit-tx)
+
+(begin-tx "Add candidates")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (add-candidate { "key": "1", "name": "Candidate A" })
+(commit-tx)
+
+(begin-tx "Voting for a non-existing candidate")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (expect-failure
+    "Cannot vote for a non-existing candidate"
+    "Candidate does not exist"
+    (vote "k:128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" "X")
+  )
+(commit-tx)
+
+(begin-tx "Voting for a candidate")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (expect
+    "Candidate A has 0 votes"
+    0
+    (at 'votes (at 0 (list-candidates)))
+  )
+  (vote "k:128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" "1")
+  (expect
+    "Candidate A has 1 vote"
+    1
+    (at 'votes (at 0 (list-candidates)))
+  )
+(commit-tx)
+
+(begin-tx "Double vote")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (expect-failure
+    "Cannot vote more than once"
+    "Multiple voting not allowed"
+    (vote "k:128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" "1")
+  )
+(commit-tx)
+
+(begin-tx "Vote on behalf of another account")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (expect-failure
+    "Voting on behalf of another account should not be allowed"
+    "Keyset failure (keys-all): [voter]"
+    (vote "voter" "1")
+  )
+(commit-tx)
+
+(env-sigs
+  [{ 'key  : "voter"
+   , 'caps : []
+  }]
+)
+
+(begin-tx "Vote as voter")
+  (use n_fd020525c953aa002f20fb81a920982b175cdf1a.election)
+  (vote "voter" "1")
+  (expect
+    "Candidate A has 2 votes"
+    2
+    (at 'votes (at 0 (list-candidates)))
+  )
+(commit-tx)

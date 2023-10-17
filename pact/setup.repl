@@ -1,0 +1,39 @@
+(env-data
+  { 'admin-keyset:
+      { 'keys : [ "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" ]
+      , 'pred : 'keys-all
+      }
+  , 'voter-keyset: { "keys": ["voter"], "pred": "keys-all" }
+  , 'init-candidates: true
+  , 'init-votes: true
+  }
+)
+
+(env-sigs
+  [{ 'key  : "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3"
+   , 'caps : []
+  }]
+)
+
+(begin-tx "Define principle namespace")
+  (define-namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a (read-keyset 'admin-keyset ) (read-keyset 'admin-keyset ))
+(commit-tx)
+
+(begin-tx "Define admin-keyset")
+  (namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a)
+  (define-keyset "n_fd020525c953aa002f20fb81a920982b175cdf1a.admin-keyset" (read-keyset 'admin-keyset ))
+(commit-tx)
+
+(begin-tx "Set up coin")
+  (load "root/fungible-v2.pact")
+  (load "root/fungible-xchain-v1.pact")
+  (load "root/coin-v5.pact")
+
+  (create-table coin.coin-table)
+  (create-table coin.allocation-table)
+(commit-tx)
+
+(begin-tx "Create voter account")
+  (coin.create-account "voter" (read-keyset "voter-keyset"))
+  (coin.create-account "k:128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" (read-keyset "admin-keyset"))
+(commit-tx)
