@@ -24,10 +24,10 @@ const hasAccountVoted = async (account: string): Promise<boolean> => {
   }
 };
 
-const vote = async (account: string, candidateName: string): Promise<void> => {
+const vote = async (account: string, candidateKey: string): Promise<void> => {
   const transaction = Pact.builder
     .execution(
-      Pact.modules[`${NAMESPACE}.election`].vote(account, candidateName),
+      Pact.modules[`${NAMESPACE}.election`].vote(account, candidateKey),
     )
     .addData('voter-keyset', {
       keys: [accountKey(account)],
