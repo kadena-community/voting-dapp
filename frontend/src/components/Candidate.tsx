@@ -33,7 +33,7 @@ export const Candidate = ({
   }, [candidate.key, retrieveCandidateVotes, voteInProgress]);
 
   return (
-    <section className="flex rounded px-4 py-6 mb-2 bg-gray-300">
+    <section className="flex px-4 py-6 mb-2 bg-white border-b-2">
       <table className="w-full table-fixed">
         <tbody className="text-center">
           <tr>

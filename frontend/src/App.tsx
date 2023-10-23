@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { Account } from "./components/Account";
-import { Candidates } from "./components/Candidates";
-import { ChainWebApiContext } from "./api/api";
-import { useLocalStorage } from "usehooks-ts";
+import {useContext, useEffect, useState} from "react";
+import {Candidates} from "./components/Candidates";
+import {ChainWebApiContext} from "./api/api";
+import {useLocalStorage} from "usehooks-ts";
+import {InlineAccount} from "./components/InlineAccount.tsx";
 
 function App() {
   const [account, setAccount] = useLocalStorage<string>(
@@ -35,23 +35,20 @@ function App() {
   };
 
   return (
-    <div>
-      <header className="text-center bg-[#ed098f] min-h-[20vh] flex flex-col items-center justify-center font-bold text-white text-2xl">
-        <p>Guide: Building a voting dApp</p>
+    <>
+      <header className="container mx-auto mt-6 p-2 flex items-center flex-wrap md:flex-nowrap md:p-0">
+        <img src="/logo.svg" width={68} height={68} alt="Kadena logo" />
+        <h1 className="ml-6 font-extrabold text-2xl flex-1 basis-1/2 text-right md:text-left">Guide: Building a voting dApp</h1>
+        <InlineAccount onChange={setAccount} account={account} voted={voteAllowed} />
       </header>
-      <section className="mt-8 mx-auto max-w-[80%]">
-        <Account
-          onSetAccount={setAccount}
-          account={account}
-          voteAllowed={voteAllowed}
-        />
+      <section className="mt-8 mx-auto container">
         <Candidates
           voteAllowed={voteAllowed}
           voteInProgress={voteInProgress}
           onVote={onVote}
         />
       </section>
-    </div>
+    </>
   );
 }
 
