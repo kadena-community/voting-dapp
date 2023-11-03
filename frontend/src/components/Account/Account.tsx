@@ -11,7 +11,6 @@ interface AccountProps {
   voteAllowed: boolean;
   onSetAccount: (account: string) => void;
   onAddCandidate: (candidate: string) => void;
-  onRefreshCandidates: () => void;
   candidateAddingInProgress: boolean;
 }
 
@@ -20,7 +19,6 @@ export const Account: FC<AccountProps> = ({
   voteAllowed,
   onSetAccount,
   onAddCandidate,
-  onRefreshCandidates,
   candidateAddingInProgress,
 }): JSX.Element => {
   const {
@@ -49,7 +47,6 @@ export const Account: FC<AccountProps> = ({
         candidateAddingInProgress={candidateAddingInProgress}
         onSetAccount={onHandleSetAccount}
         onClickCandidate={setShowCandidateModal}
-        onRefreshCandidates={onRefreshCandidates}
       />
 
       {candidateAddingInProgress && (
