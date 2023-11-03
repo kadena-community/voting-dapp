@@ -35,7 +35,6 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
     })
     .addSigner(accountKey(account), (withCapability: any) => [
       withCapability(`${NAMESPACE}.election-gas-station.GAS_PAYER`, account, { int: 0 }, { decimal: '0.0' }),
-      withCapability('coin.GAS'),
       withCapability(`${NAMESPACE}.election.ACCOUNT-OWNER`, account),
     ])
     .setMeta({

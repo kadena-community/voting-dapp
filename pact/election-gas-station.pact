@@ -36,11 +36,7 @@
   (defcap ALLOW_GAS () true)
 
   (defun create-gas-payer-guard:guard ()
-    (create-user-guard (gas-payer-guard))
-  )
-
-  (defun gas-payer-guard ()
-    (require-capability (GAS))
+    (create-capability-guard (ALLOW_GAS))
   )
 
   (defconst GAS_STATION_ACCOUNT "election-gas-station")
