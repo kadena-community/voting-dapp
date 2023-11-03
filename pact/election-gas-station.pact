@@ -7,8 +7,6 @@
 
   (implements gas-payer-v1)
 
-  (use coin)
-
   (defun chain-gas-price ()
     (at 'gas-price (chain-data))
   )
