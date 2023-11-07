@@ -37,7 +37,7 @@
     (create-capability-guard (ALLOW_GAS))
   )
 
-  (defconst GAS_STATION_ACCOUNT "election-gas-station")
+  (defconst GAS_STATION_ACCOUNT (create-principal (create-gas-payer-guard)))
 
   (defun init ()
     (coin.create-account GAS_STATION_ACCOUNT (create-gas-payer-guard))

@@ -42,7 +42,7 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
       ttl: 28000,
       gasLimit: 100000,
       gasPrice: 0.000001,
-      senderAccount: 'election-gas-station',
+      senderAccount: 'c:Jjn2uym_xGD32ojhWdPjB5mgIbDwgXRRvkWmFl5n4gg',
     })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
