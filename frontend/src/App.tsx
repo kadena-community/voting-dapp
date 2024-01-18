@@ -50,7 +50,7 @@ const App: React.FC = (): JSX.Element => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Guide: Building a voting dApp</p>
+        <p>Workshop: Election application</p>
       </header>
       <section className="Voting-section">
         <Account
