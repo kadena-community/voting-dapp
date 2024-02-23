@@ -7,10 +7,6 @@ const network = process.env.KADENA_NETWORK || defaultNetwork;
 const defaultChainId = '1';
 const defaultNetworkId: string = 'fast-development';
 
-export const getApiHost = (): string => {
-  return `http://localhost:8080/chainweb/0.0/${getNetworkId()}/chain/${getChainId()}/pact`;
-};
-
 export const getChainId = (): ChainId => {
   switch (network) {
     case 'devnet':
@@ -25,4 +21,8 @@ export const getNetworkId = (): string => {
     default:
       return defaultNetworkId;
   }
+};
+
+export const getApiHost = (): string => {
+  return `http://localhost:8080/chainweb/0.0/${getNetworkId()}/chain/${getChainId()}/pact`;
 };
