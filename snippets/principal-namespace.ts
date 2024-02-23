@@ -1,4 +1,4 @@
-import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@kadena/client';
+import { Pact, createClient, createSignWithChainweaver, isSignedTransaction } from '@kadena/client';
 import { getApiHost, getChainId, getNetworkId } from './configuration';
 
 const client = createClient(getApiHost());
@@ -28,6 +28,7 @@ async function main(account: string) {
     .setNetworkId(getNetworkId())
     .createTransaction();
 
+  const signWithChainweaver = createSignWithChainweaver();
   const signedTx = await signWithChainweaver(transaction);
 
   if (isSignedTransaction(signedTx)) {
