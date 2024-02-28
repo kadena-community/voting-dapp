@@ -41,6 +41,7 @@
 
   (defun gas-payer-guard ()
     (require-capability (GAS))
+    (require-capability (ALLOW_GAS))
   )
 
   (defconst GAS_STATION_ACCOUNT "election-gas-station")
