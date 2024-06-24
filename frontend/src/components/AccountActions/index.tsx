@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import AccountActionsList from '../AccountActionsList';
 
@@ -6,14 +6,12 @@ interface IAccountActionsProps {
   account?: string;
   candidateAddingInProgress: boolean;
   onClickCandidate: (showCandidateModal: boolean) => void;
-  onRefreshCandidates: () => void;
   onSetAccount: () => void;
 }
 
-const AccountActions: React.FC<IAccountActionsProps> = ({
+const AccountActions: FC<IAccountActionsProps> = ({
   account,
   onClickCandidate,
-  onRefreshCandidates,
   onSetAccount,
   candidateAddingInProgress = false,
 }) => {
@@ -26,7 +24,6 @@ const AccountActions: React.FC<IAccountActionsProps> = ({
         <AccountActionsList
           candidateAddingInProgress={candidateAddingInProgress}
           onClickCandidate={onClickCandidate}
-          onRefreshCandidates={onRefreshCandidates}
         />
       )}
     </div>

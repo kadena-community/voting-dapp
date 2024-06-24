@@ -10,7 +10,7 @@ const accountKey = (account: string) => account.split(':')[1];
 
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const transaction = Pact.builder
-    // @ts-ignore account-voted
+    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
@@ -35,22 +35,13 @@ const vote = async (account: string, candidateName: string): Promise<void> => {
       keys: [accountKey(account)],
       pred: 'keys-all',
     })
-    // .addSigner(accountKey(account))
-    .addSigner(accountKey(account), (withCapability) => [
-      // @ts-ignore
-      withCapability(`${NAMESPACE}.election-gas-station.GAS_PAYER`, account, { int: 0 }, { decimal: '0.0' }),
-      // @ts-ignore
-      withCapability('coin.GAS'),
-      // @ts-ignore
-      withCapability(`${NAMESPACE}.election.ACCOUNT-OWNER`, account),
-    ])
+    .addSigner(accountKey(account))
     .setMeta({
       chainId: CHAIN_ID,
       ttl: 28000,
       gasLimit: 100000,
       gasPrice: 0.000001,
-      senderAccount: 'election-gas-station',
-      // senderAccount: account,
+      senderAccount: account,
     })
     .setNetworkId(NETWORK_ID)
     .createTransaction();

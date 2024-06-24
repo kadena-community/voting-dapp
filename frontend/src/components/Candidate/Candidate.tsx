@@ -1,4 +1,5 @@
-import React from 'react';
+import { FC } from 'react';
+
 import './Candidate.css';
 import { ICandidate } from '../../types';
 
@@ -9,7 +10,7 @@ interface ICandidateProps {
   onVote: (candidateId: string) => void;
 }
 
-export const Candidate: React.FC<ICandidateProps> = ({
+export const Candidate: FC<ICandidateProps> = ({
   candidate: { key, name, votes },
   voteAllowed,
   voteInProgress,

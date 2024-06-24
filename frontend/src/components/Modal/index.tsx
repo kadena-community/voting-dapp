@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal as ReactResponsiveModal } from 'react-responsive-modal';
 
@@ -9,7 +9,7 @@ interface IModalProps {
   open?: boolean;
 }
 
-const Modal: React.FC<IModalProps> = ({ title, onClose, children, open = false }): JSX.Element => {
+const Modal: FC<IModalProps> = ({ title, onClose, children, open = false }) => {
   return (
     <ReactResponsiveModal onClose={onClose} closeOnEsc={false} center open={open}>
       <h2>{title}</h2>

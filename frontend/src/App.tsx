@@ -15,7 +15,6 @@ const App: React.FC = (): JSX.Element => {
 
   const loadCandidates = async () => {
     const candidates = await candidateService.listCandidates();
-    console.log(candidates);
     setCandidates(candidates);
   };
 
@@ -57,7 +56,6 @@ const App: React.FC = (): JSX.Element => {
         <Account
           onSetAccount={setAccount}
           onAddCandidate={addCandidate}
-          onRefreshCandidates={loadCandidates}
           account={account}
           voteAllowed={voteAllowed}
           candidateAddingInProgress={candidateAddingInProgress}

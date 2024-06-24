@@ -8,21 +8,16 @@
   "main": "deploy-mainnet.js",
   "scripts": {
     "coin-details:devnet": "KADENA_NETWORK=devnet ts-node ./coin-details.ts",
+    "create-account:devnet": "KADENA_NETWORK=devnet ts-node ./create-account.ts",
     "create-namespace:devnet": "KADENA_NETWORK=devnet ts-node ./principal-namespace.ts",
     "define-keyset:devnet": "KADENA_NETWORK=devnet ts-node ./define-keyset.ts",
-    "deploy-devnet": "node deploy-devnet.js",
-    "deploy-mainnet": "node deploy-mainnet.js",
-    "deploy-module:devnet": "KADENA_NETWORK=devnet ts-node ./deploy-module.ts",
     "deploy-gas-station:devnet": "KADENA_NETWORK=devnet ts-node ./deploy-gas-station.ts",
-    "deploy-testnet": "node deploy-testnet.js",
+    "deploy-module:devnet": "KADENA_NETWORK=devnet ts-node ./deploy-module.ts",
     "format": "prettier --write .",
     "generate-types:coin:devnet": "pactjs contract-generate --contract coin --api http://localhost:8080/chainweb/0.0/fast-development/chain/1/pact",
-    "lint": "eslint . --ext ts,tsx,js,jsx",
-    "lint:fix": "eslint . --ext ts,tsx,js,jsx --fix",
     "list-modules:devnet": "KADENA_NETWORK=devnet ts-node ./list-modules.ts",
     "transfer-create:devnet": "KADENA_NETWORK=devnet ts-node ./transfer-create.ts",
-    "transfer:devnet": "KADENA_NETWORK=devnet ts-node ./transfer.ts",
-    "create-account:devnet": "KADENA_NETWORK=devnet ts-node ./create-account.ts"
+    "transfer:devnet": "KADENA_NETWORK=devnet ts-node ./transfer.ts"
   },
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",

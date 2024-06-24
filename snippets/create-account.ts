@@ -15,12 +15,7 @@ const accountKey = (account: string): string => account.split(':')[1];
 
 main(FUNDING_ACCOUNT, FUNDING_ACCOUNT_PUBLIC_KEY, FUNDING_ACCOUNT_PRIVATE_KEY, process.argv[2]);
 
-async function main(
-  sender: string,
-  senderPublicKey: string,
-  senderPrivateKey: string,
-  account: string,
-) {
+async function main(sender: string, senderPublicKey: string, senderPrivateKey: string, account: string) {
   const transaction = Pact.builder
     .execution(Pact.modules.coin['create-account'](account, () => '(read-keyset "ks")'))
     .addData('ks', {
