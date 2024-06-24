@@ -14,7 +14,7 @@
     "deploy-gas-station:devnet": "KADENA_NETWORK=devnet ts-node ./deploy-gas-station.ts",
     "deploy-module:devnet": "KADENA_NETWORK=devnet ts-node ./deploy-module.ts",
     "format": "prettier --write .",
-    "generate-types:coin:devnet": "pactjs contract-generate --contract coin --api http://localhost:8080/chainweb/0.0/fast-development/chain/1/pact",
+    "generate-types:coin:devnet": "pactjs contract-generate --contract coin --api http://localhost:8080/chainweb/0.0/development/chain/1/pact",
     "list-modules:devnet": "KADENA_NETWORK=devnet ts-node ./list-modules.ts",
     "transfer-create:devnet": "KADENA_NETWORK=devnet ts-node ./transfer-create.ts",
     "transfer:devnet": "KADENA_NETWORK=devnet ts-node ./transfer.ts"
@@ -22,10 +22,10 @@
   "dependencies": {
     "@kadena/chainweb-node-client": "0.2.5",
     "@kadena/client": "latest",
-    "@kadena/pactjs": "^0.3.2"
+    "@kadena/pactjs": "^0.4.2"
   },
   "devDependencies": {
-    "@kadena/pactjs-cli": "^1.4.0",
+    "@kadena/pactjs-cli": "^1.7.0",
     "@types/node": "^20.8.2",
     "prettier": "^3.0.3",
     "prettier-plugin-packagejson": "^2.4.5",
