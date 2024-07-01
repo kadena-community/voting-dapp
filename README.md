@@ -15,8 +15,8 @@ npm run start
 ```
 
 This will run the front-end of the election dApp with an in-memory data provider. When
-you have completed the tutorial and deployed the election smart contract to Devnet,
-you can run the front-end using Devnet as its back-end with the following command.
+you have completed the tutorial and deployed the election smart contract to development network running locally,
+you can run the front-end using development network as its back-end with the following command.
 
 ```
 npm run start-devnet

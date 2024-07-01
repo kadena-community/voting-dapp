@@ -1,17 +1,16 @@
 import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@kadena/client';
 import { ICandidate } from '../../types';
 
-const NETWORK_ID = 'fast-development';
+const NETWORK_ID = 'development';
 const CHAIN_ID = '1';
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const NAMESPACE = 'n_fd020525c953aa002f20fb81a920982b175cdf1a';
+const NAMESPACE = 'n_14912521e87a6d387157d526b281bde8422371d1';
 
 const client = createClient(API_HOST);
 const accountKey = (account: string) => account.split(':')[1];
 
 const listCandidates = async (): Promise<ICandidate[]> => {
   const transaction = Pact.builder
-    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['list-candidates']())
     .setMeta({
       chainId: CHAIN_ID,
@@ -28,7 +27,6 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
   const transaction = Pact.builder
     .execution(
-      // @ts-ignore
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
     .addData('admin-keyset', {
