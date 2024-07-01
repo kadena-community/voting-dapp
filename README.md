@@ -5,7 +5,7 @@ This repository contains the code files used in the
 
 ## Starting the app
 
-After cloning the repository, install and run the frontend of the application by running the following from the root directory of the project:
+After cloning the repository, install and run the frontend of the application by running the following commands from the root directory of the project:
 
 ```
 cd frontend
