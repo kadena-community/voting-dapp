@@ -1,7 +1,7 @@
 import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@kadena/client';
 import { ICandidate } from '../../types';
 
-const NETWORK_ID = 'fast-development';
+const NETWORK_ID = 'development';
 const CHAIN_ID = '1';
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
 const NAMESPACE = 'n_fd020525c953aa002f20fb81a920982b175cdf1a';
