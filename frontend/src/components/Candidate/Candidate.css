@@ -26,6 +26,10 @@
   width: 80%;
   height: 80%;
   font-weight: bold;
+  background-color: #469279;
+  border-radius: 10px;
+  font-size: auto;
+  color: white;
 }
 
 .Candidate-row-header {
