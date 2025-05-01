@@ -1,62 +1,54 @@
 (env-data
-  { 'user-keyset :
-    { 'keys : [ 'user-public-key ]
-    , 'pred : 'keys-all
+    { "user-keyset" :
+      { 'keys : [ 'user-public-key ]
+      , 'pred : 'keys-all
+      }
+    , "admin-keyset" :
+      { 'keys : [ 'admin-public-key ]
+      , 'pred : 'keys-all
+      }
     }
-  , 'admin-keyset :
-    { 'keys : [ 'admin-public-key ]
-    , 'pred : 'keys-all
-    }
-  }
 )
 
-(begin-tx
-  "Define a namespace called 'election"
+(begin-tx "Define a namespace called "election"")
+  (expect
+    "Test: Namespace can be successfully defined"
+    "Namespace defined: election"
+    (define-namespace "election" (read-keyset "user-keyset") (read-keyset "admin-keyset"))
+  ) 
+(commit-tx)
+
+(env-sigs
+    [{ 'key  : 'admin-public-key
+     , 'caps : []
+    }]
 )
+
+(begin-tx "Update the "election"' namespace")
 (expect
-  "A namespace can be created"
+  "An admin can modify the namespace to change the keyset governing the namespace"
   "Namespace defined: election"
-  (define-namespace 'election (read-keyset 'user-keyset) (read-keyset 'admin-keyset))
+  (define-namespace "election" (read-keyset "admin-keyset") (read-keyset "user-keyset"))
+)
+(commit-tx)
+
+(begin-tx "Try to update the "election"' namespace with the wrong permissions")
+   (expect-failure
+     "The previous admin can no longer update the namespace"
+     "Keyset failure (keys-all)"
+     (define-namespace "election" (read-keyset "user-keyset") (read-keyset "admin-keyset"))
 )
 (commit-tx)
 
 (env-sigs
-  [{ 'key  : 'admin-public-key
-   , 'caps : []
-  }]
-)
-
-(begin-tx
-  "Update the 'election' namespace"
-)
-(expect
-  "An admin can redefine the namespace can be created, for instance to set another admin keyset"
-  "Namespace defined: election"
-  (define-namespace 'election (read-keyset 'admin-keyset) (read-keyset 'user-keyset))
-)
-(commit-tx)
-
-(begin-tx
-  "Try to update the 'election' namespace with the wrong permissions"
-)
-(expect-failure
-  "The previous admin can no longer update the namespace"
-  "Keyset failure (keys-all)"
-  (define-namespace 'election (read-keyset 'user-keyset) (read-keyset 'admin-keyset))
-)
-(commit-tx)
-
-(env-sigs
-  [{ 'key  : 'user-public-key
-   , 'caps : []
-  }]
-)
-(begin-tx
-  "Redefine a namespace called 'election as the new admin"
-)
-(expect
-  "The new admin can update the namespace"
-  "Namespace defined: election"
-  (define-namespace 'election (read-keyset 'user-keyset) (read-keyset 'admin-keyset))
-)
-(commit-tx)
+    [{ 'key  : 'user-public-key
+     , 'caps : []
+    }]
+  )
+  (begin-tx "Redefine a namespace called "election" as the new admin")
+  (expect
+    "The new admin can update the namespace"
+    "Namespace defined: election"
+    (define-namespace "election" (read-keyset "user-keyset") (read-keyset "admin-keyset"))
+  )
+  (commit-tx)
