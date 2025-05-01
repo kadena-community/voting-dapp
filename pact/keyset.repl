@@ -1,0 +1,62 @@
+(env-data
+    { "admin-keyset" :
+      { "keys" : [ "admin-public-key" ]
+      , "pred" : "keys-all"
+      }
+    }
+)
+
+(begin-tx "Define a namespace to define the keyset in")
+      (define-namespace "election" (read-keyset "admin-keyset") (read-keyset "admin-keyset"))
+(commit-tx)
+
+(begin-tx "Define a new keyset")
+   (namespace "election")
+   (expect
+     "A keyset can be defined"
+     "Keyset write success"
+     (define-keyset "election.election-admin-keyset" (read-keyset "admin-keyset")))
+(commit-tx)
+
+(env-data
+    { "admin-keyset" :
+      { "keys" : [ "other-public-key" ]
+      , "pred" : "keys-all"
+      }
+    }
+)
+
+(env-sigs
+   [{ "key"  : 'other-public-key
+    , "caps" : []
+   }]
+)
+
+(begin-tx "Define a keyset using a different keyset fails")
+  (namespace "election")
+  (expect-failure
+    "keyset definition is already defined using a different keyset"
+    "Keyset failure (keys-all): [admin-pu...]"
+    (define-keyset "election.election-admin-keyset" (read-keyset "admin-keyset"))
+  )
+(commit-tx)
+
+(env-sigs
+    [{ "key"  : 'other-public-key
+     , "caps" : []
+    }
+    ,{ "key"  : 'admin-public-key
+     , "caps" : []
+    }]
+)
+
+(begin-tx
+    "Rotating the existing keyset to a new keyset works if the transaction is signed with the original admin-public-key"
+  )
+  (namespace "election")
+  (expect
+    "Keyset can be rotated"
+    "Keyset write success"
+    (define-keyset "election.election-admin-keyset" (read-keyset "admin-keyset"))
+  )
+  (commit-tx)
