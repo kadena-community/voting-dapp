@@ -27,7 +27,7 @@
 )
 
 (env-sigs
-   [{ "key"  : 'other-public-key
+   [{ "key"  : "other-public-key"
     , "caps" : []
    }]
 )
@@ -42,10 +42,10 @@
 (commit-tx)
 
 (env-sigs
-    [{ "key"  : 'other-public-key
+    [{ "key"  : "other-public-key"
      , "caps" : []
     }
-    ,{ "key"  : 'admin-public-key
+    ,{ "key"  : "admin-public-key"
      , "caps" : []
     }]
 )
