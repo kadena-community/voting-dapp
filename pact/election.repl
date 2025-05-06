@@ -90,7 +90,7 @@
 )
 
 (begin-tx "Add candidate without permission fails")
-  (use n_14912521e87a6d387157d526b281bde8422371d1.election)
+  (use n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80.election)
   (expect-failure
     "Adding a candidate with the wrong keyset should fail"
     "Keyset failure (keys-all)"
