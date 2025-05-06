@@ -2,9 +2,9 @@ import { Pact, createClient, isSignedTransaction, signWithChainweaver } from '@k
 import { ICandidate } from '../../types';
 
 const NETWORK_ID = 'development';
-const CHAIN_ID = '1';
+const CHAIN_ID = '3';
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const NAMESPACE = 'n_fd020525c953aa002f20fb81a920982b175cdf1a';
+const NAMESPACE = 'n_1cc1f83c56f53b8865cc23a61e36d4b17e73ce9e';
 
 const client = createClient(API_HOST);
 const accountKey = (account: string) => account.split(':')[1];
@@ -29,7 +29,7 @@ const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise
     .execution(
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
-    .addData('admin-keyset', {
+    .addData('election-admin', {
       keys: [accountKey(sender)],
       pred: 'keys-all',
     })
