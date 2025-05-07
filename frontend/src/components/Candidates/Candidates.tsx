@@ -20,7 +20,7 @@ export const Candidates: FC<ICandidatesProps> = ({ voteAllowed, voteInProgress, 
         {voteInProgress && (
           <div className="Candidates-progress">
             <span>Voting transaction in progress ...</span>
-            <SpinnerRoundFilled size={30} color="#ed098f" />
+            <SpinnerRoundFilled size={30} color="#469279" />
           </div>
         )}
       </header>
