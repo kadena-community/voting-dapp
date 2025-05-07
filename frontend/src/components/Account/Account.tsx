@@ -55,10 +55,10 @@ export const Account: FC<AccountProps> = ({
       {candidateAddingInProgress && (
         <div className="Candidates-progress">
           <span>Adding candidate...</span>
-          <SpinnerRoundFilled size={30} color="#ed098f" />
+          <SpinnerRoundFilled size={30} color="#469279" />
         </div>
       )}
-      <Modal title="Provide your k:account" onClose={() => setShowModal(false)} open={showModal}>
+      <Modal title="Provide your account name (k:)" onClose={() => setShowModal(false)} open={showModal}>
         <div className="Account-input-wrapper">
           <input onChange={onHandleInputChange} value={inputValue} className="Account-input"></input>
           <button onClick={onHandleSave}>Save</button>
