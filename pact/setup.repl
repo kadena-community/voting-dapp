@@ -1,29 +1,20 @@
 (env-data
-  { 'admin-keyset:
-      { 'keys : [ "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" ]
-      , 'pred : 'keys-all
-      }
-  , 'voter-keyset: { "keys": ["voter"], "pred": "keys-all" }
-  , 'init-candidates: true
-  , 'init-votes: true
-  }
-)
-
-(env-sigs
-  [{ 'key  : "128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3"
-   , 'caps : []
-  }]
-)
-
-(begin-tx "Define principle namespace")
-  (define-namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a (read-keyset 'admin-keyset ) (read-keyset 'admin-keyset ))
-(commit-tx)
-
-(begin-tx "Define admin-keyset")
-  (namespace 'n_fd020525c953aa002f20fb81a920982b175cdf1a)
-  (define-keyset "n_fd020525c953aa002f20fb81a920982b175cdf1a.admin-keyset" (read-keyset 'admin-keyset ))
-(commit-tx)
-
+    { "election-admin":
+        { "keys" : [ "d0aa32802596b8e31f7e35d1f4995524f11ed9c7683450b561e01fb3a36c18ae" ]
+        , "pred" : "keys-all"
+        }
+    , "init-candidates": true
+    , 'init-votes: true
+    , "voter-keyset": { "keys": ["voter"], "pred": "keys-all" }
+    }
+  )
+  
+  (env-sigs
+    [{ "key"  : "d0aa32802596b8e31f7e35d1f4995524f11ed9c7683450b561e01fb3a36c18ae"
+     , "caps" : []
+    }]
+  )
+  
 (begin-tx "Set up coin")
   (load "root/fungible-v2.pact")
   (load "root/fungible-xchain-v1.pact")
@@ -31,9 +22,18 @@
 
   (create-table coin.coin-table)
   (create-table coin.allocation-table)
+
+  (coin.create-account "voter" (read-keyset "voter-keyset"))
+  (coin.create-account "election-admin" (read-keyset "election-admin"))
 (commit-tx)
 
-(begin-tx "Create voter account")
-  (coin.create-account "voter" (read-keyset "voter-keyset"))
-  (coin.create-account "k:128c32eb3b4d99be6619aa421bc3df9ebc91bde7a4acf5e8eb9c27f553fa84f3" (read-keyset "admin-keyset"))
-(commit-tx)
+  (begin-tx "Define the principal namespace")
+    (define-namespace "n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80" (read-keyset "election-admin" ) (read-keyset "election-admin" ))
+  (commit-tx)
+  
+  (begin-tx "Define the election-admin keyset in the namespace")
+    (namespace "n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80")
+    (define-keyset "n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80.election-admin" (read-keyset "election-admin" ))
+  (commit-tx)
+  
+  

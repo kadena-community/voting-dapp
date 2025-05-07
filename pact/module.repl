@@ -1,125 +1,83 @@
 (env-data
-  { 'admin-keyset :
-    { 'keys : [ 'admin-key ]
-    , 'pred : 'keys-all
-    }
-  }
+   { "admin-keyset" :
+      { "keys" : [ "admin-public-key" ]
+      , "pred" : "keys-all"
+      }
+   }
 )
-
 (env-sigs
-  [{ 'key  : 'admin-key
-   , 'caps : []
-  }]
+   [{ "key"  : "admin-public-key"
+    , "caps" : []
+   }]
 )
 
-(begin-tx
-  "Define a namespace for the module"
-)
-  (define-namespace 'election (read-keyset 'admin-keyset) (read-keyset 'admin-keyset))
+(begin-tx "Define a namespace for the module")
+    (define-namespace "election" (read-keyset "admin-keyset") (read-keyset "admin-keyset"))
+(commit-tx)
+(begin-tx "Define a keyset to govern the module")
+    (namespace "election")
+    (define-keyset "election.admin-keyset" (read-keyset "admin-keyset"))
 (commit-tx)
 
-(begin-tx
-  "Define a keyset to govern the module"
-)
-  (namespace 'election)
-  (define-keyset "election.admin-keyset" (read-keyset 'admin-keyset))
+(begin-tx "Deploy the election module")
+  (module election GOVERNANCE       ; Start the module declaration
+     (defcap GOVERNANCE () true)    ; Define the module owner capability
+
+     (defun list-candidates () [])  ; Add a new function to the transaction
+  )                                 ; End the module declaration
 (commit-tx)
 
-(begin-tx
-  "Deploy the election module"
-)
-  (module election "election.admin-keyset"
-    (defun list-candidates () [])
-  )
-(commit-tx)
-
-(begin-tx
-  "Look up the election module"
-)
-  (expect
-    "The election module should exist"
-    ["election"]
-    (list-modules)
-  )
+(begin-tx "Look up the election module")
+   (expect "The election module should exist"
+     ["election"]
+     (list-modules)
+   )
 (commit-tx)
 
 (env-data {})
 (env-sigs [])
-
-(begin-tx
-  "Call updated list-candidates function"
-)
-  (expect
-    "list-candidates returns a list with numbers"
-    []
-    (election.list-candidates)
-  )
+(begin-tx "Call list-candidates")
+   (expect "list-candidates returns an empty list"
+     []
+     (election.list-candidates)
+   )
 (commit-tx)
 
 (env-data
-  { 'admin-keyset :
-    { 'keys : [ 'admin-key ]
-    , 'pred : 'keys-all
+    { "admin-keyset" :
+       { "keys" : [ "admin-public-key" ]
+       , "pred" : "keys-all"
+       }
     }
-  }
-)
+ )
+ (env-sigs
+    [{ "key"  : "admin-public-key"
+     , "caps" : []
+    }]
+ )
 
-(env-sigs
-  [{ 'key  : 'admin-key
-   , 'caps : []
-  }]
-)
-
-(begin-tx
-  "Upgrade the module"
-)
-  (module election "election.admin-keyset"
-    (defun list-candidates () [1, 2, 3])
-  )
+(begin-tx "Update the module")
+   (module election "election.admin-keyset"
+     (defun list-candidates () [1, 2, 3])
+   )
+(commit-tx)
+(begin-tx "Call updated list-candidates function")
+   (expect "list-candidates returns a list with numbers"
+     [1, 2, 3]
+     (election.list-candidates)
+   )
 (commit-tx)
 
-;  (env-data
-;    { 'admin-keyset :
-;      { 'keys : [ 'other-key ]
-;      , 'pred : 'keys-all
-;      }
-;    }
-;  )
+(begin-tx "Update the module with enforce-guard")
+   (module election GOVERNANCE 
+     (defcap GOVERNANCE () 
+       (enforce-guard (keyset-ref-guard "election.admin-keyset")))
+        
+     (defun list-candidates () ["Chris", "Harry", "Tai"])
+   )
+(commit-tx)
 
-;  (env-sigs
-;    [{ 'key  : 'other-key
-;     , 'caps : []
-;    }]
-;  )
-
-;  (begin-tx
-;    "Upgrade the module without permission"
-;  )
-;    (module election "election.admin-keyset"
-;      (defun list-candidates () [])
-;    )
-;  (commit-tx)
-
-(env-data
-  { 'admin-keyset :
-    { 'keys : [ 'admin-key ]
-    , 'pred : 'keys-all
-    }
-  }
-)
-
-(env-sigs
-  [{ 'key  : 'admin-key
-   , 'caps : []
-  }]
-)
-
-(begin-tx
-  "Refactor governance of the module"
-)
-  (module election GOVERNANCE
-    (defcap GOVERNANCE ()
-      (enforce-keyset "election.admin-keyset"))
-    (defun list-candidates () [1, 2, 3])
-  )
+(begin-tx "Return the list of candidates")
+   (use election)  
+   (election.list-candidates)
 (commit-tx)
