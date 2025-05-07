@@ -1,6 +1,6 @@
 {
-  "short_name": "Voting dApp",
-  "name": "Voting dApp Demo",
+  "short_name": "Election",
+  "name": "Election sample application",
   "icons": [
     {
       "src": "favicon.ico",
