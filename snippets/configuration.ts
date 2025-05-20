@@ -4,7 +4,7 @@ type Network = 'devnet' | 'testnet' | 'mainnet';
 
 const defaultNetwork: Network = 'devnet';
 const network = process.env.KADENA_NETWORK || defaultNetwork;
-const defaultChainId = '1';
+const defaultChainId = '3';
 const defaultNetworkId: string = 'development';
 
 export const getApiHost = (): string => {
