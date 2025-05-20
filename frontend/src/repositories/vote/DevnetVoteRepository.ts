@@ -11,6 +11,7 @@ const accountKey = (account: string) => account.split(':')[1];
 // hasAccountVoted reads from the blockchain and doesn't need to sign or send
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const readTransaction = Pact.builder
+    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
@@ -30,6 +31,7 @@ const hasAccountVoted = async (account: string): Promise<boolean> => {
 
 const vote = async (account: string, candidateKey: string): Promise<void> => {
   const unsignedTransaction = Pact.builder
+    // @ts-ignore
     .execution(
       Pact.modules[`${NAMESPACE}.election`].vote(account, candidateKey),
     )

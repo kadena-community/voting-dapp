@@ -13,6 +13,7 @@ const accountKey = (account: string) => account.split(':')[1];
 // list-candidates reads from the blockchain and doesn't need to sign or send
 const listCandidates = async (): Promise<ICandidate[]> => {
   const readTransaction = Pact.builder
+    // @ts-ignore
     .execution(Pact.modules[`${NAMESPACE}.election`]['list-candidates']())
     .setMeta({
       chainId: CHAIN_ID,
@@ -29,6 +30,7 @@ const listCandidates = async (): Promise<ICandidate[]> => {
 // add-candidate requires the election-admin account and signature
 const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
   const unsignedTransaction = Pact.builder
+    // @ts-ignore
     .execution(
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
@@ -48,10 +50,9 @@ const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise
 
     const electionKeyPair:IKeyPair = {
       publicKey:
-        //accountKey(sender)
-        "d0aa32802596b8e31f7e35d1f4995524f11ed9c7683450b561e01fb3a36c18ae",
+        //accountKey(sender),
       secretKey:
-        '35003210deab99bc9652d1f254b0489a318ed996544d6db1160c7e1b320e0c72',
+        //secretKey,
     };
 
     const signWithKeypair = createSignWithKeypair([electionKeyPair]);
