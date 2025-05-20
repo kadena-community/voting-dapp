@@ -3,18 +3,14 @@ import { IKeyPair } from '@kadena/client';
 import { ICandidate } from '../../types.js';
 
 const NETWORK_ID = 'development';
-const CHAIN_ID = '3';
+const CHAIN_ID = '4'; // Replace with the appropriate chain identifier
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const NAMESPACE = 'n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80';
+const NAMESPACE = 'n_90785a0e8c65525ef342c84991842f851868f7cb'; // Replace with the principal namespace for your administrative account
 
 const kadenaClient = createClient(API_HOST);
 const accountKey = (account: string) => account.split(':')[1];
 
-interface IAccount {
-  accountName: string;
-  publicKey: string;
-}
-
+// list-candidates reads from the blockchain and doesn't need to sign or send
 const listCandidates = async (): Promise<ICandidate[]> => {
   const readTransaction = Pact.builder
     .execution(Pact.modules[`${NAMESPACE}.election`]['list-candidates']())
@@ -30,28 +26,33 @@ const listCandidates = async (): Promise<ICandidate[]> => {
   return result.status === 'success' ? (result.data.valueOf() as ICandidate[]) : [];
 };
 
-const addCandidate = async (candidate: ICandidate, sender: IAccount): Promise<void> => {
+// add-candidate requires the election-admin account and signature
+const addCandidate = async (candidate: ICandidate, sender: string = ''): Promise<void> => {
   const unsignedTransaction = Pact.builder
     .execution(
       Pact.modules[`${NAMESPACE}.election`]['add-candidate'](candidate),
     )
     .addData('election-admin', {
-      keys: [sender.publicKey],
+      keys: [accountKey(sender)],
       pred: 'keys-all',
     })
-    .addSigner(sender.publicKey)
+    .addSigner(accountKey(sender))
     .setMeta({
       chainId: CHAIN_ID,
-      senderAccount: sender.accountName,
+      senderAccount: sender
     })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
 
+    console.log('tx', unsignedTransaction);
+
     const electionKeyPair:IKeyPair = {
       publicKey:
-        'd0aa32802596b8e31f7e35d1f4995524f11ed9c7683450b561e01fb3a36c18ae',
+        //sender.publicKey,
+        //accountKey(sender)
+        "02b055c8be0eeaa659d0927f3e2399080c91f3fdf94d079498b04d6987acbd46",
       secretKey:
-        '35003210deab99bc9652d1f254b0489a318ed996544d6db1160c7e1b320e0c72',
+        '5a02489796c9ec2ec74edf15b63140224d0516ce6cd8f62303ac63b56a45c336',
     };
 
     const signWithKeypair = createSignWithKeypair([electionKeyPair]);
@@ -74,8 +75,8 @@ const addCandidate = async (candidate: ICandidate, sender: IAccount): Promise<vo
   }
 };
 
+// votes are incremented internally in the Pact module
 const incrementVotesByCandidateKey = (): Promise<void> => {
-  // happens internally in the Pact module
   return Promise.resolve();
 };
 

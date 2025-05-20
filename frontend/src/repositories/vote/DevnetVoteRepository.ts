@@ -1,19 +1,23 @@
-import { Pact, createClient, isSignedTransaction, signTransactions } from '@kadena/client';
+import { Pact, createClient, isSignedTransaction, createSignWithChainweaver } from '@kadena/client';
 
 const NETWORK_ID = 'development';
-const CHAIN_ID = '3';
+const CHAIN_ID = '4'; // Replace with the appropriate chain identifier
 const API_HOST = `http://localhost:8080/chainweb/0.0/${NETWORK_ID}/chain/${CHAIN_ID}/pact`;
-const NAMESPACE = 'n_d5ff15d933b83c1ef691dce3dabacfdfeaeade80';
+const NAMESPACE = 'n_90785a0e8c65525ef342c84991842f851868f7cb'; // Replace with the principal namespace for your administrative account
 
 const kadenaClient = createClient(API_HOST);
 const accountKey = (account: string) => account.split(':')[1];
 
+// hasAccountVoted reads from the blockchain and doesn't need to sign or send
 const hasAccountVoted = async (account: string): Promise<boolean> => {
   const readTransaction = Pact.builder
     .execution(Pact.modules[`${NAMESPACE}.election`]['account-voted'](account))
     .setMeta({ chainId: CHAIN_ID })
     .setNetworkId(NETWORK_ID)
     .createTransaction();
+
+    console.log('tx', readTransaction);
+
   const { result } = await kadenaClient.dirtyRead(readTransaction);
 
   if (result.status === 'success') {
@@ -44,7 +48,11 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
     .setNetworkId(NETWORK_ID)
     .createTransaction();
 
-  const signedTx = await signTransactions("https://chainweaver.kadena.network:9467/");
+    console.log('tx', unsignedTransaction);
+
+    // This example calls Chainweaver v2 running locally on the default port.
+    const signWithWallet= createSignWithChainweaver();
+    const signedTx = await signWithWallet(unsignedTransaction);
 
   if (isSignedTransaction(signedTx)) {
     const transactionDescriptor = await kadenaClient.submit(signedTx);
