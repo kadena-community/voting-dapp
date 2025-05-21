@@ -1,4 +1,4 @@
-import { Pact, createClient, isSignedTransaction, createSignWithChainweaver } from '@kadena/client';
+import { Pact, createClient, isSignedTransaction, createSignWithChainweaver, createSignWithKeypair } from '@kadena/client';
 
 const NETWORK_ID = 'development';
 const CHAIN_ID = '4'; // Replace with the appropriate chain identifier
@@ -52,8 +52,26 @@ const vote = async (account: string, candidateKey: string): Promise<void> => {
 
     // This example calls Chainweaver v2 running locally on the default port.
     const signWithWallet= createSignWithChainweaver();
-    const signedTx = await signWithWallet(unsignedTransaction);
+    const signedWithWalletTx = await signWithWallet(unsignedTransaction);
+    if (isSignedTransaction(signedWithWalletTx)) {
+      const transactionDescriptor = await kadenaClient.submit(signedwithWalletTx);
+      const { result } = await kadenaClient.listen(transactionDescriptor);
+      if (result.status === 'failure') {
+        throw result.error;
+      } else {
+        console.log(result);
+      }
+    }
+    // This example signs the transaction with a key pair.
+    const electionKeyPair:IKeyPair = {
+      publicKey:
+        "02b055c8be0eeaa659d0927f3e2399080c91f3fdf94d079498b04d6987acbd46",
+      secretKey:
+        '5a02489796c9ec2ec74edf15b63140224d0516ce6cd8f62303ac63b56a45c336',
+    };
 
+    const signWithKeypair = createSignWithKeypair([electionKeyPair]);
+    const signedTx = await signWithKeypair(unsignedTransaction);
   if (isSignedTransaction(signedTx)) {
     const transactionDescriptor = await kadenaClient.submit(signedTx);
     const { result } = await kadenaClient.listen(transactionDescriptor);

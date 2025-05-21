@@ -61,7 +61,7 @@ export const Account: FC<AccountProps> = ({
       <Modal title="Provide your account name (k:)" onClose={() => setShowModal(false)} open={showModal}>
         <div className="Account-input-wrapper">
           <input onChange={onHandleInputChange} value={inputValue} className="Account-input"></input>
-          <button onClick={onHandleSave}>Save</button>
+          <button onClick={onHandleSave}>Set</button>
         </div>
       </Modal>
       <Modal title="Add a candidate" onClose={() => setShowCandidateModal(false)} open={showCandidateModal}>
@@ -72,7 +72,7 @@ export const Account: FC<AccountProps> = ({
             className="Account-input"
             placeholder={'{ "key": "6", "name": "Kuromi" }'}
           />
-          <button onClick={onHandleCandidateSave}>Save</button>
+          <button onClick={onHandleCandidateSave}>Add</button>
         </div>
       </Modal>
     </div>
